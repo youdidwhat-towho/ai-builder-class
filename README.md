@@ -23,8 +23,12 @@ Nothing here is a demo. It all runs.
 
 **1. Put the vault somewhere you will find it.**
 
-Copy the `vault-starter` folder to your home folder and rename it `second-brain`.
-That exact name, lowercase with the hyphen, so class instructions match your screen.
+Unzip `second-brain-starter.zip` into your home folder. It expands to a folder
+already named `second-brain`, lowercase with the hyphen, so nothing to rename and
+class instructions match your screen exactly.
+
+(If you are reading this inside the repo instead of from the zip, the same folder is
+here as `vault-starter/`. Copy it out and rename it `second-brain`.)
 
 **2. Open it in Obsidian.**
 

@@ -23,14 +23,15 @@ your actual business.
 
 ## Step 1: make the folder
 
-Copy `vault-starter` into your home folder. Rename it to exactly:
+Unzip `second-brain-starter.zip` into your home folder. You get a folder called:
 
 ```
 second-brain
 ```
 
-Lowercase, with the hyphen. Everyone in class uses the same name so instructions
-work on your screen without translating.
+Lowercase, with the hyphen. It is already named correctly, so there is nothing to
+rename. Everyone in class uses the same name, which is why instructions will work on
+your screen without translating.
 
 ---
 
