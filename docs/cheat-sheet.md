@@ -14,6 +14,7 @@ Keep this open during class. One page, nothing else to memorize.
 | Ask about your own stuff | `what's in my daily note?` |
 | Run comps | `run comps on 1247 Oak Street` |
 | Save mid-session, keep working | `checkpoint` |
+| Save the whole conversation | `tldr` |
 | Close out the day | `wrap up` |
 | Pick up tomorrow | `/pickup` |
 | Check your skills loaded | `what skills do you have?` |
@@ -22,15 +23,16 @@ Keep this open during class. One page, nothing else to memorize.
 
 ## The daily loop
 
-These four are not separate tricks. They are one cycle, and the cycle is the whole
+These are not separate tricks. They are one cycle, and the cycle is the whole
 system.
 
 ```
-   /pickup  ────────►  capture  ────────►  checkpoint  ────────►  wrap up
-   start of day        all day long        when it matters        end of day
-       ▲                                                              │
-       └──────────────────────────────────────────────────────────────┘
-                     tomorrow starts where today ended
+   /pickup  ──►  capture  ──►  checkpoint  ──►  tldr  ──►  wrap up
+   start of day  all day      when it        end of a     end of day
+                              matters        conversation
+       ▲                                                        │
+       └────────────────────────────────────────────────────────┘
+                 tomorrow starts where today ended
 ```
 
 | Step | Say | What it does |
@@ -38,15 +40,19 @@ system.
 | **Start** | `/pickup` | Reads your recent notes and tells you where you left off and what to do today |
 | **All day** | `capture this:` | Everything lands in `daily/`, timestamped, no filing decisions |
 | **When it matters** | `checkpoint` | Saves mid-session so nothing is lost if you walk away or start fresh |
-| **End** | `wrap up` | Files the day, updates what you're working on, writes tomorrow's first move |
+| **End of a conversation** | `tldr` | Writes that conversation up as its own dated note, with a handoff for next time |
+| **End of the day** | `wrap up` | Files the day, updates what you're working on, writes tomorrow's first move |
 
 **Why checkpoint exists:** a long conversation eventually runs out of room and gets
 summarized, and detail can fall out. Checkpoint moves what matters into the vault
 before that happens. If losing the conversation would cost you something, checkpoint it.
 
-**Why the loop matters more than any single command:** `wrap up` is what makes `/pickup`
-work tomorrow. Skip the first and the second has nothing to read. Run both for a week
-and you stop starting your day from zero.
+**Why tldr is separate from wrap up:** you may have three real conversations in a day.
+Each one gets its own `tldr`. `wrap up` runs once, at the end, over all of them.
+
+**Why the loop matters more than any single command:** `tldr` and `wrap up` are what make
+`/pickup` work tomorrow. Skip the writers and the reader has nothing to read. Run them for
+a week and you stop starting your day from zero.
 
 ---
 

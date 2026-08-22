@@ -5,6 +5,10 @@ description: Resume where you left off. Reads recent daily notes and current sta
 Read `MEMORY.md`, then the last three files in `daily/` (newest first), including any
 `## HH:MM checkpoint` entries in them.
 
+Session notes are named `daily/YYYY-MM-DD-<topic>.md` and are written by `tldr`. If any
+of them carry a `## Handoff` section, read that section first and treat it as the
+starting point. It was written for exactly this moment.
+
 Then tell me, briefly:
 
 1. **Where I left off.** What was I in the middle of?

@@ -12,7 +12,7 @@ Nothing here is a demo. It all runs.
 | Folder | What it is |
 |---|---|
 | `vault-starter/` | Your second brain. A working Obsidian vault, not an empty template. |
-| `claude-config/skills/` | Eight skills. Onboarding, capture, deal intake, checkpoint, end of day, coaching, and two comps tools. |
+| `claude-config/skills/` | Nine skills. Onboarding, capture, deal intake, checkpoint, tldr, end of day, coaching, and two comps tools. |
 | `claude-config/commands/` | Slash commands. Start with `/pickup`. |
 | `claude-config/settings.example.json` | A working hook, with notes on what hooks are for. |
 | `docs/` | Read `first-hour.md` first. |
@@ -93,6 +93,7 @@ That decision is where capture dies. Filing happens later and Claude does it.
 | `capture` | "capture this", or just start talking |
 | `deal-intake` | "new deal", or paste a lead in any shape |
 | `checkpoint` | "checkpoint", "save where we are", "I have to go" |
+| `tldr` | "tldr", "save this session", "write this up" |
 | `end-of-day` | "wrap up", "close out the day" |
 | `coaching-callouts` | Nothing. Always on. It teaches while you work. |
 | `comps-propwire` | "run comps on 1247 Oak" (free, all 50 states) |

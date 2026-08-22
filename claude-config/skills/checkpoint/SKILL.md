@@ -39,7 +39,9 @@ session.
    or since the session started.
 2. **Write decisions, not activity.** "Decided to pass on 1247 Oak, roof plus foundation"
    beats "discussed 1247 Oak."
-3. **Never end the session.** That is what `end-of-day` is for.
+3. **Never end the session.** To write the whole conversation up when it is actually
+   over, that is `tldr`. To close out the day across every conversation, that is
+   `end-of-day`.
 4. **Keep it fast.** No questions, no confirmation prompts. They are mid-thought.
 
 ## When to suggest one without being asked
