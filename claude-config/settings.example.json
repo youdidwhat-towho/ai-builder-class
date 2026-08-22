@@ -1,0 +1,21 @@
+{
+  "_read_me_first": "Rename this to settings.json and put it in your Claude config folder to turn it on. Hooks are the ONLY thing that runs every single time. Rules in CLAUDE.md are guidance, followed most of the time. Anything that must never be skipped belongs here instead of there.",
+
+  "_what_this_does": "Writes one line to a log file every time Claude changes a file in your vault, so you always have a trail of what changed even when you were not watching.",
+
+  "_try_this_next": "Change the command to send yourself a notification, or to refuse edits to a folder you want left alone.",
+
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$(date '+%Y-%m-%d %H:%M') file changed\" >> \"$HOME/second-brain/change-log.txt\""
+          }
+        ]
+      }
+    ]
+  }
+}

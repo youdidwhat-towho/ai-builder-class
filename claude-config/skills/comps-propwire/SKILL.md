@@ -94,7 +94,7 @@ If a run produces fewer than three real sales, **say that out loud as the findin
 
 **Tick the header checkbox to select the whole page, or tick individual rows.** Both figures compute live off the selection and update as rows are added or removed.
 
-That is the tool's real workflow: select the comps you actually believe, then read the number. On the test run, selecting all 26 gave **$282,240 / $196 per sqft** — but that included a $4,040 junk row and a 3,078 sqft outlier, so the honest move is to deselect the garbage and re-read.
+That is the tool's real workflow: select the comps you actually believe, then read the number. On the test run, selecting all 26 gave **$282,240 / $196 per sqft**, but that included a $4,040 junk row and a 3,078 sqft outlier, so the honest move is to deselect the garbage and re-read.
 
 ## Step 5: Build the clickable set
 

@@ -1,90 +1,103 @@
-# AI Builder Class — Skills
+# AI Builder Class: starter kit
 
-Working Claude Code skills from the AI Builder Class. These are not demos. They are the actual tools, with the traps already found so you don't have to find them the hard way.
+Everything from the class, in one place. A working second brain, the skills that
+drive it, and the coaching system that teaches you while you use it.
 
-**Class: Saturday, August 22.**
-
----
-
-## What a skill is
-
-A skill is a folder with a `SKILL.md` in it. Claude reads the description, decides when it applies, and follows the steps. You don't call it like a program. You say "run comps in propwire on 123 Main St" and it goes.
-
-The value isn't the instructions. It's the **traps**. Every skill here carries the specific ways the tool lies to you, learned by getting it wrong first.
+Nothing here is a demo. It all runs.
 
 ---
 
-## Install
+## What's in the box
 
-Drop the folders into your skills directory:
-
-```bash
-# macOS / Linux
-mkdir -p ~/.claude/skills
-cp -R skills/* ~/.claude/skills/
-```
-
-Restart Claude Code. Type `/` and you should see them listed.
-
-To confirm it took, ask Claude: *"what skills do you have for comps?"*
+| Folder | What it is |
+|---|---|
+| `vault-starter/` | Your second brain. A working Obsidian vault, not an empty template. |
+| `claude-config/skills/` | Seven skills. Onboarding, capture, deal intake, end of day, coaching, and two comps tools. |
+| `claude-config/commands/` | Slash commands. Start with `/pickup`. |
+| `claude-config/settings.example.json` | A working hook, with notes on what hooks are for. |
+| `docs/` | Read `first-hour.md` first. |
 
 ---
 
-## What's in here
+## Start here, about ten minutes
 
-### `comps-propwire`
+**1. Put the vault somewhere you will find it.**
 
-Comparable sales in **PropWire**, which is free, needs no credits, and covers all 50 states.
+Copy the `vault-starter` folder to your home folder and rename it `second-brain`.
+That exact name, lowercase with the hyphen, so class instructions match your screen.
 
-Traps it carries:
+**2. Open it in Obsidian.**
 
-- **Most rows labeled "Sold" are not sales.** PropWire tags its own estimates with `/est` and puts them in the same table as real closings. On the run that built this skill, **24 of 26 were estimates.** Averaging those together gives you a confident, wrong number.
-- **The value reads $0 until you tick the checkboxes.** Not a paywall. That's the workflow.
-- **Widen distance and time, never tighten beds and baths.** Over-filtering makes an empty result that looks like a dead market.
+Obsidian → *Open folder as vault* → pick your new `second-brain` folder.
 
-### `comps-propelio`
+**3. Install the skills.**
 
-Comparable sales in **Propelio**, for **non-disclosure states** (TX, TN, LA, MS, UT, ID, KS, AK, NM, ND, WY, MO, MT). In those states sale prices aren't public record, so the MLS feed is the only source and a public-records tool physically cannot help you.
+Two ways, pick the one that matches what you are running:
 
-Traps it carries:
+- **Claude desktop app:** Settings → Capabilities → Skills → upload each skill's
+  zip. This needs no terminal.
+- **Claude Code:** copy the folders into your Claude skills directory:
+  ```bash
+  mkdir -p ~/.claude/skills
+  cp -R claude-config/skills/* ~/.claude/skills/
+  ```
+  Then restart Claude Code. Type `/` and you should see them.
 
-- **Coverage is partial and it fails late.** The property record loads fine everywhere, then the comps tab tells you there's no coverage. Check the map first.
-- **`app.propelio.com` is the dead legacy app.** Property pages render a blank white screen. Use `genesis.propelio.com`.
-- **The results list mixes active listings with sales.** A "9 results" CMA can be nine stale listings and zero closings. The tell is the Sold summary reading all dashes.
+**4. Give Claude access to the vault folder** and say this:
 
----
+> let's set up my second brain
 
-## Requirements
+It will interview you for about fifteen minutes and write the answers into your
+vault. **Do this part for real.** It is the difference between a chatbot that
+sounds smart and a second brain that knows your business.
 
-| Skill | Account | Cost |
-|---|---|---|
-| `comps-propwire` | propwire.com | Free |
-| `comps-propelio` | propelio.com | Paid |
+**5. Then put one real thing in.**
 
-Both drive a real browser, so you need browser automation connected to Claude (Claude in Chrome or equivalent) and you need to be logged into the tool already. Neither skill will ever try to log in for you.
-
----
-
-## The pattern worth stealing
-
-Every one of these follows the same shape, and it's the shape that transfers to whatever tool you use:
-
-1. **Check coverage or capability first**, so you fail in ten seconds instead of ten minutes
-2. **Start tight, widen one step at a time**, and report where you stopped, because how far you had to widen is itself information
-3. **Separate hard data from estimates** and never let the estimates carry the conclusion
-4. **Hand back something clickable**, so the human can check your work instead of trusting it
-5. **Name the conflicts** between sources instead of picking a winner silently
-
-A tool changes. That list doesn't.
+A deal, a call you had this week, a list you are sitting on. Messy is fine, messy is
+better. Then ask it what to do about it.
 
 ---
 
-## Fair use
+## The one habit
 
-These drive vendor interfaces at human pace using your own logged-in account. They are not scrapers and shouldn't be turned into scrapers. PropWire in particular runs bot detection, and hammering it gets your account challenged or blocked.
+**Everything goes in `daily/` first.** Every note, every call recap, every stray
+thought. Do not stop to decide where it belongs.
 
-Undocumented endpoints change without notice. Don't build anything you'd be upset to have break.
+That decision is where capture dies. Filing happens later and Claude does it.
 
 ---
 
-*Questions during the class, or after: bring them to the group.*
+## What each skill does
+
+| Skill | Say this |
+|---|---|
+| `second-brain-onboarding` | "let's set up my second brain" |
+| `capture` | "capture this", or just start talking |
+| `deal-intake` | "new deal", or paste a lead in any shape |
+| `end-of-day` | "wrap up", "close out the day" |
+| `coaching-callouts` | Nothing. Always on. It teaches while you work. |
+| `comps-propwire` | "run comps on 1247 Oak" (free, all 50 states) |
+| `comps-propelio` | Same, for non-disclosure states |
+
+The comps skills drive a real browser using your own logged-in account, so you need
+browser access connected and you need to already be signed in to those sites. They
+will never try to log in for you.
+
+---
+
+## When something does not work
+
+1. Did you restart after installing skills? Most of the time it is this.
+2. Ask Claude: *"what skills do you have?"* If yours are not listed, they did not
+   install. That is a different problem from a skill that is installed but not firing.
+3. Still stuck, bring it to the group.
+
+---
+
+## Keep it yours
+
+This is a starting point, not a finished system. Everything here is a plain text
+file you can open and edit. Change the wording, delete what you do not use, add
+what you need.
+
+The best version of this vault in six months will not look much like this one.
