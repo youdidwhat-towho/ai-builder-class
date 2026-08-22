@@ -2,7 +2,8 @@
 description: Resume where you left off. Reads recent daily notes and current state, then says what to do next.
 ---
 
-Read `MEMORY.md`, then the last three files in `daily/` (newest first).
+Read `MEMORY.md`, then the last three files in `daily/` (newest first), including any
+`## HH:MM checkpoint` entries in them.
 
 Then tell me, briefly:
 
