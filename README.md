@@ -16,6 +16,7 @@ Nothing here is a demo. It all runs.
 | `claude-config/commands/` | Slash commands. Start with `/pickup`. |
 | `claude-config/settings.example.json` | A working hook, with notes on what hooks are for. |
 | `docs/` | Read `first-hour.md` first. |
+| `UPDATE.md` | How to pull new skills later. No GitHub account needed. |
 
 ---
 
@@ -102,6 +103,27 @@ That decision is where capture dies. Filing happens later and Claude does it.
 The comps skills drive a real browser using your own logged-in account, so you need
 browser access connected and you need to already be signed in to those sites. They
 will never try to log in for you.
+
+---
+
+## Getting updates later
+
+New skills get added and existing ones get fixed. One command pulls the latest.
+No GitHub account, nothing to install.
+
+**Mac**, Terminal:
+```bash
+curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash
+```
+
+**Windows**, PowerShell:
+```powershell
+irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex
+```
+
+It replaces skills only and never touches your vault. Restart Claude Code after.
+If you installed through the desktop app instead, see `UPDATE.md` for the upload
+version.
 
 ---
 

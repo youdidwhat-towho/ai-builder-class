@@ -142,6 +142,18 @@ spend your money, or email a client.
 
 ---
 
+## Getting new skills later
+
+The kit keeps improving. To pull the latest, one line:
+
+**Mac**, Terminal: `curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash`
+
+**Windows**, PowerShell: `irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex`
+
+No account, nothing to install, and it never touches your notes. Restart Claude Code after.
+
+---
+
 ## After today
 
 Do this for one week: capture into `daily/` every day, and run `wrap up` before you
