@@ -23,7 +23,16 @@ your actual business.
 
 ## Step 1: make the folder
 
-Unzip `second-brain-starter.zip` into your home folder. You get a folder called:
+Unzip `second-brain-starter.zip` into your home folder.
+
+🚨 **On Windows, right click the zip and choose Extract All.** If you double click it,
+Windows shows a preview that looks exactly like a folder but nothing has been
+extracted yet. Files dragged out of that preview sometimes arrive empty, and you will
+not find out until Claude says your vault is empty.
+
+On Mac, double clicking is fine.
+
+You get a folder called:
 
 ```
 second-brain
@@ -119,6 +128,29 @@ three it is something else, because by then it knows things nobody else wrote do
 your money, or email a client. The worst case is a messy folder.
 
 ---
+
+## Mac and Windows
+
+Everything today works on both. Where they differ, it is only in what a path looks
+like, and you will rarely need to type one.
+
+| | Mac | Windows |
+|---|---|---|
+| Your home folder | `~`, which is `/Users/` plus your name | `C:\Users\yourname`, or `%USERPROFILE%` |
+| Your vault | `~/second-brain` | `%USERPROFILE%\second-brain` |
+| Terminal is called | Terminal | PowerShell |
+| Unzip | double click | right click, **Extract All** |
+| Slashes in paths | forward `/` | back `\` |
+
+Two notes worth having:
+
+- **When you paste a command from a Mac and it fails on Windows, the slashes are
+  usually why.** Tell Claude "I'm on Windows" and it will give you the right version.
+  You do not have to translate anything yourself.
+- **Node.js is the one install that behaves a little differently.** On Mac you may be
+  asked for your password. On Windows it is next-next-finish but you may need to close
+  and reopen PowerShell before it is recognized. Either way, if it fights you, stop and
+  bring it to the power hour.
 
 ## Words you will hear today
 

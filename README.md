@@ -23,7 +23,12 @@ Nothing here is a demo. It all runs.
 
 **1. Put the vault somewhere you will find it.**
 
-Unzip `second-brain-starter.zip` into your home folder. It expands to a folder
+Works the same on Mac and Windows. Unzip `second-brain-starter.zip` into your home
+folder.
+
+🚨 **Windows: right click the zip and choose Extract All.** Double clicking opens a
+preview window that looks like a folder but has not actually extracted anything, and
+files dragged out of a preview sometimes arrive empty. It expands to a folder
 already named `second-brain`, lowercase with the hyphen, so nothing to rename and
 class instructions match your screen exactly.
 
@@ -40,12 +45,21 @@ Two ways, pick the one that matches what you are running:
 
 - **Claude desktop app:** Settings → Capabilities → Skills → upload each skill's
   zip. This needs no terminal.
-- **Claude Code:** copy the folders into your Claude skills directory:
+- **Claude Code, Mac:** open Terminal and run
   ```bash
   mkdir -p ~/.claude/skills
   cp -R claude-config/skills/* ~/.claude/skills/
   ```
+- **Claude Code, Windows:** open PowerShell and run
+  ```powershell
+  mkdir "$env:USERPROFILE\.claude\skills" -Force
+  Copy-Item -Recurse -Force claude-config\skills\* "$env:USERPROFILE\.claude\skills\"
+  ```
+
   Then restart Claude Code. Type `/` and you should see them.
+
+  Only take this path if you are already comfortable in a terminal. The desktop
+  upload above does the same job with no typing.
 
 **4. Give Claude access to the vault folder** and say this:
 

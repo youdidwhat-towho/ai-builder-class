@@ -3,6 +3,12 @@
 
   "_what_this_does": "Writes one line to a log file every time Claude changes a file in your vault, so you always have a trail of what changed even when you were not watching.",
 
+  "_MAC_OR_LINUX": "The command below is written for Mac. It will not run on Windows.",
+
+  "_WINDOWS_USERS": "Replace the command string with this PowerShell version: powershell -Command \"Add-Content -Path \\\"$env:USERPROFILE\\second-brain\\change-log.txt\\\" -Value ((Get-Date -Format 'yyyy-MM-dd HH:mm') + ' file changed')\"",
+
+  "_EASIER": "Do not hand-edit this. Ask Claude: 'set up a hook that logs every file change, I am on Windows' and let it write the right one for your machine.",
+
   "_try_this_next": "Change the command to send yourself a notification, or to refuse edits to a folder you want left alone.",
 
   "hooks": {

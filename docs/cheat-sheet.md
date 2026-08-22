@@ -45,6 +45,22 @@ second-brain/
 
 ---
 
+## Mac vs Windows
+
+Only the paths differ. Everything else is identical.
+
+| | Mac | Windows |
+|---|---|---|
+| Home folder | `~` | `%USERPROFILE%` |
+| Your vault | `~/second-brain` | `%USERPROFILE%\second-brain` |
+| Terminal | Terminal | PowerShell |
+| Unzip | double click | right click, **Extract All** |
+
+**If a command fails, say "I'm on Windows" and ask for it again.** Do not translate
+paths yourself.
+
+---
+
 ## Words you'll hear
 
 | Word | Means |
