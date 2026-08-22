@@ -145,25 +145,16 @@ spend your money, or email a client.
 
 ## Getting new skills later
 
-The kit keeps improving. Easiest way, just say to Claude:
+The kit keeps improving. Say to Claude:
 
 > **update my class skills**
 
-Or run it yourself:
+That is the whole thing. No commands, no account, and it never touches your notes.
+Restart Claude Code afterward.
 
-**Windows**, PowerShell:
-
-```
-[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex
-```
-
-**Mac**, Terminal:
-
-```
-curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash
-```
-
-No account, nothing to install, and it never touches your notes. Restart Claude Code after.
+🚨 **Never paste a command someone handed you to install or fix Claude.** Fake
+"install Claude" ads are everywhere right now and that is exactly how they work.
+Real updates never ask you to paste anything.
 
 ---
 

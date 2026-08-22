@@ -109,29 +109,21 @@ will never try to log in for you.
 
 ## Getting updates later
 
-New skills get added and existing ones get fixed. No GitHub account, nothing to
-install.
+New skills get added and existing ones get fixed. Say this to Claude:
 
-**Easiest way, say this to Claude:**
+> **update my class skills**
 
-> update my class skills
+It downloads the latest from the public repo, installs it, and tells you what is
+new. Your vault is never touched. Restart Claude Code afterward.
 
-It figures out your operating system, runs the right thing, and handles any error
-itself. If you would rather run it yourself:
+If you would rather do it by hand, `UPDATE.md` has a click-only version that needs
+no commands at all.
 
-**Windows**, PowerShell:
-```powershell
-[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex
-```
-
-**Mac**, Terminal:
-```bash
-curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash
-```
-
-It replaces skills only and never touches your vault. Restart Claude Code after.
-If you installed through the desktop app instead, see `UPDATE.md` for the upload
-version.
+🚨 **Nobody should ever paste a command they were handed in order to install or fix
+Claude.** Fake "install Claude" ads and pages are common right now, and telling you
+to paste a command is how most of them work. If a page or a message tells you to
+paste something into PowerShell or Terminal, stop and ask in the group first. Real
+updates never need that.
 
 ---
 
