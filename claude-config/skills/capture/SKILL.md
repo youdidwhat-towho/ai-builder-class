@@ -9,6 +9,11 @@ One door. No decisions. This is the skill that keeps the vault alive, because a
 capture system that asks a question before it accepts input is a capture system
 people stop using.
 
+## Before your first capture of a session
+
+Read `CLAUDE.md` in the vault if you have not this session. Do not assume it was
+loaded for you. It carries how this person wants to be worked with.
+
 ## What to do
 
 Append to `daily/YYYY-MM-DD.md` for today. Create the file if it does not exist.

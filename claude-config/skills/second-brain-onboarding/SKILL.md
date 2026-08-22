@@ -9,6 +9,13 @@ The gap between a chatbot and a second brain is that a second brain knows things
 about the person that were never written down anywhere. This interview is how it
 learns them, and it is the first thing a new vault should run.
 
+## Before you start
+
+Read `CLAUDE.md` and `MEMORY.md` in the vault first, if you have not already this
+session. Do not assume they were loaded for you. Some surfaces load `CLAUDE.md`
+automatically and some do not, and an interview that ignores rules the user already
+wrote is worse than no interview.
+
 ## The rules of the interview
 
 1. **One question at a time.** Never send a wall of questions. A list of twelve

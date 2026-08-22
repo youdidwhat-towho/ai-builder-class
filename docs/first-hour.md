@@ -80,6 +80,15 @@ Take your time on that one.
 
 ---
 
+## A habit worth starting now
+
+Begin every session with:
+
+> read CLAUDE.md in my vault and follow it
+
+Two seconds, and it guarantees your standing instructions are actually in play rather
+than sitting in a file nobody opened.
+
 ## Step 5: put something real in
 
 Open today's file in `daily/` and paste in something from your actual week. A

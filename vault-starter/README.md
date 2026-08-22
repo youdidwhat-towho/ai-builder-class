@@ -14,6 +14,19 @@ This is a working vault, not an empty template. Open it in Obsidian and start us
 
 That is the whole loop. Capture, ask, act.
 
+## Start every session with this
+
+Type this as your first message, every time:
+
+> read CLAUDE.md in my vault and follow it
+
+**Why it matters:** `CLAUDE.md` holds your standing instructions. In some setups it
+loads on its own. In others it is just a file sitting in a folder until something
+reads it. One short sentence removes the guesswork, and it costs you two seconds.
+
+If it loaded on its own, saying this changes nothing. If it did not, this is the
+difference between a second brain and a chatbot with a folder.
+
 ## The one habit that makes this work
 
 **Everything goes in `daily/` first.** Every note, every idea, every call recap.
