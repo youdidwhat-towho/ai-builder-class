@@ -72,6 +72,10 @@ done, write to these files, then tell them exactly what you wrote and where.
 about how they work as new numbered items under "Rules". Keep it tight, a few lines
 each. Do not paste the transcript in. This file has to stay short to stay effective.
 
+Edit it in place. Do not rewrite the file from scratch, and leave the "How to write
+to me" and "Coaching" sections alone unless they asked for a change to them. Those
+govern how you talk to them, and rebuilding the file is how they quietly vanish.
+
 **`MEMORY.md`**. Put what they are working on right now under the first heading, and
 anything they are waiting on under the second.
 

@@ -18,6 +18,7 @@ Keep this open during class. One page, nothing else to memorize.
 | Close out the day | `wrap up` |
 | Pick up tomorrow | `/pickup` |
 | Check your skills loaded | `what skills do you have?` |
+| Turn down the coaching | `fewer callouts` |
 
 ---
 
@@ -131,6 +132,10 @@ which questions it had no way to answer.
 
 **It gets better as the vault fills.** Week one it is a smart assistant. Month three
 it knows things nobody else wrote down.
+
+**The coaching is turned up on purpose.** Colored callouts will fire often for the
+first few weeks, because almost everything is new and that is when a lesson sticks.
+Say `fewer callouts` any time and it dials back permanently.
 
 **You cannot break it.** Every file is plain text. Nothing here can touch your CRM,
 spend your money, or email a client.

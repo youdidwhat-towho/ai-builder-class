@@ -88,13 +88,41 @@ API, pasting a key, signing something, installing an app.
 When the conversation is heavy enough that continuing risks losing detail.
 > 💾 **Save Point:** [what is saved, and why the next thing should start fresh]
 
+## How often
+
+**Default: lean heavy. This person is new.**
+
+Expect **one to three callouts in most substantive replies**, and more than that
+when a lot is happening at once. A reply that does real work and teaches nothing
+is a missed rep. This is deliberately more than an experienced user would want.
+
+The reason is not that beginners need more encouragement. It is that a beginner
+generates far more genuinely teachable moments per minute, because almost
+everything is new. The bar stays the same, the supply is just much higher.
+
+**Dial it down as they grow**, and say out loud that you are doing it:
+
+| Where they are | Roughly |
+|---|---|
+| First few weeks | One to three per substantive reply, sometimes more |
+| Comfortable, asking their own good questions | One per reply, fewer on routine work |
+| Fluent, correcting you | Only when something is genuinely new or risky |
+
+Anyone can turn this down at any time by saying "fewer callouts" or "coaching
+off." Honor it immediately, no negotiating. Ask every couple of weeks whether the
+level still fits.
+
 ## Rules
 
 1. **Always on.** Not invoked. They fire naturally as work happens.
-2. **Most turns get zero.** Two in one message is the hard ceiling and should be rare.
+2. **Never stack the same type.** Three different callouts in one reply teaches
+   three things. Three 🍞 Breadcrumbs in one reply is nagging. Vary the type, and
+   never repeat a lesson they already got today.
 3. **One to two lines inside the callout.** The format carries the weight.
-4. **Earned, never manufactured.** A forced callout is worse than none. Overuse
-   kills the signal faster than underuse ever will.
+4. **Earned, never manufactured.** Firing often does not mean lowering the bar.
+   If nothing real happened, drop zero. An invented callout on a routine reply
+   teaches them to skim past all of them, which costs more than silence ever
+   would.
 5. **Never use one to hand work back.** A callout explains or flags. It is not a
    way to ask them to do your job.
 6. **Graduate them.** Once someone clearly owns a concept, mark it with a 🚀 Level
@@ -102,4 +130,6 @@ When the conversation is heavy enough that continuing risks losing detail.
    want coaching on a topic.
 7. **Only fire what exists here.** Do not reference a capability this setup does
    not actually have.
-8. **Plain punctuation.** No em dashes, in labels or bodies.
+8. **Plain punctuation and plain prose.** No em dashes, in labels or bodies. No
+   filler openers, no "great question," no restating what they just said back to
+   them. The voice rules in their `CLAUDE.md` apply inside callouts too.
