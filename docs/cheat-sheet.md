@@ -19,6 +19,7 @@ Keep this open during class. One page, nothing else to memorize.
 | Pick up tomorrow | `/pickup` |
 | Check your skills loaded | `what skills do you have?` |
 | Turn down the coaching | `fewer callouts` |
+| Get the newest skills | `update my class skills` |
 
 ---
 
@@ -83,16 +84,16 @@ second-brain/
 
 ---
 
-## Mac vs Windows
+## Windows vs Mac
 
-Only the paths differ. Everything else is identical.
+Most of this room is on Windows. Only the paths differ, everything else is identical.
 
-| | Mac | Windows |
+| | Windows | Mac |
 |---|---|---|
-| Home folder | `~` | `%USERPROFILE%` |
-| Your vault | `~/second-brain` | `%USERPROFILE%\second-brain` |
-| Terminal | Terminal | PowerShell |
-| Unzip | double click | right click, **Extract All** |
+| Home folder | `%USERPROFILE%` | `~` |
+| Your vault | `%USERPROFILE%\second-brain` | `~/second-brain` |
+| Terminal | PowerShell | Terminal |
+| Unzip | right click, **Extract All** | double click |
 
 **If a command fails, say "I'm on Windows" and ask for it again.** Do not translate
 paths yourself.
@@ -144,11 +145,23 @@ spend your money, or email a client.
 
 ## Getting new skills later
 
-The kit keeps improving. To pull the latest, one line:
+The kit keeps improving. Easiest way, just say to Claude:
 
-**Mac**, Terminal: `curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash`
+> **update my class skills**
 
-**Windows**, PowerShell: `irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex`
+Or run it yourself:
+
+**Windows**, PowerShell:
+
+```
+[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex
+```
+
+**Mac**, Terminal:
+
+```
+curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash
+```
 
 No account, nothing to install, and it never touches your notes. Restart Claude Code after.
 

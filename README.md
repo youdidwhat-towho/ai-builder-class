@@ -12,7 +12,7 @@ Nothing here is a demo. It all runs.
 | Folder | What it is |
 |---|---|
 | `vault-starter/` | Your second brain. A working Obsidian vault, not an empty template. |
-| `claude-config/skills/` | Nine skills. Onboarding, capture, deal intake, checkpoint, tldr, end of day, coaching, and two comps tools. |
+| `claude-config/skills/` | Ten skills. Onboarding, capture, deal intake, checkpoint, tldr, end of day, coaching, updates, and two comps tools. |
 | `claude-config/commands/` | Slash commands. Start with `/pickup`. |
 | `claude-config/settings.example.json` | A working hook, with notes on what hooks are for. |
 | `docs/` | Read `first-hour.md` first. |
@@ -44,17 +44,17 @@ Obsidian → *Open folder as vault* → pick your new `second-brain` folder.
 
 Two ways, pick the one that matches what you are running:
 
-- **Claude desktop app:** Settings → Capabilities → Skills → upload each skill's
-  zip. This needs no terminal.
-- **Claude Code, Mac:** open Terminal and run
-  ```bash
-  mkdir -p ~/.claude/skills
-  cp -R claude-config/skills/* ~/.claude/skills/
-  ```
+- **Claude desktop app:** Settings, Capabilities, Skills, upload each skill's zip.
+  This needs no terminal at all and works the same on Windows and Mac.
 - **Claude Code, Windows:** open PowerShell and run
   ```powershell
   mkdir "$env:USERPROFILE\.claude\skills" -Force
   Copy-Item -Recurse -Force claude-config\skills\* "$env:USERPROFILE\.claude\skills\"
+  ```
+- **Claude Code, Mac:** open Terminal and run
+  ```bash
+  mkdir -p ~/.claude/skills
+  cp -R claude-config/skills/* ~/.claude/skills/
   ```
 
   Then restart Claude Code. Type `/` and you should see them.
@@ -97,6 +97,7 @@ That decision is where capture dies. Filing happens later and Claude does it.
 | `tldr` | "tldr", "save this session", "write this up" |
 | `end-of-day` | "wrap up", "close out the day" |
 | `coaching-callouts` | Nothing. Always on. It teaches while you work. |
+| `update-kit` | "update my class skills" |
 | `comps-propwire` | "run comps on 1247 Oak" (free, all 50 states) |
 | `comps-propelio` | Same, for non-disclosure states |
 
@@ -108,17 +109,24 @@ will never try to log in for you.
 
 ## Getting updates later
 
-New skills get added and existing ones get fixed. One command pulls the latest.
-No GitHub account, nothing to install.
+New skills get added and existing ones get fixed. No GitHub account, nothing to
+install.
+
+**Easiest way, say this to Claude:**
+
+> update my class skills
+
+It figures out your operating system, runs the right thing, and handles any error
+itself. If you would rather run it yourself:
+
+**Windows**, PowerShell:
+```powershell
+[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex
+```
 
 **Mac**, Terminal:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.sh | bash
-```
-
-**Windows**, PowerShell:
-```powershell
-irm https://raw.githubusercontent.com/youdidwhat-towho/ai-builder-class/main/update.ps1 | iex
 ```
 
 It replaces skills only and never touches your vault. Restart Claude Code after.
