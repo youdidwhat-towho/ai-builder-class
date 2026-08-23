@@ -125,6 +125,22 @@ async function main() {
     report("Daily jobs", "warn", err.message);
   }
 
+  // ---- Desktop icon -------------------------------------------------
+  try {
+    const { createLauncher, hasWindowsTerminal } = await import(path.join(HERE, "launcher.mjs"));
+    const res = createLauncher(vault);
+    if (res.ok) {
+      report("Desktop icon", "ok", `"${path.basename(res.file)}" on your Desktop`);
+      if (process.platform === "win32" && !hasWindowsTerminal()) {
+        report("Windows Terminal", "warn", res.note);
+      }
+    } else {
+      report("Desktop icon", "warn", res.note);
+    }
+  } catch (err) {
+    report("Desktop icon", "warn", err.message);
+  }
+
   // ---- Search ------------------------------------------------------------
   try {
     const npm = process.platform === "win32" ? "npm.cmd" : "npm";
@@ -160,8 +176,10 @@ function finish(vault) {
   }
   console.log("  Your second brain is ready.");
   console.log("");
-  console.log("  Restart Claude so the wiring loads, then come back here.");
-  console.log("  It will introduce itself and ask you a few questions.");
+  console.log("  From now on, open your second brain by double-clicking");
+  console.log("  \"Second Brain\" on your Desktop. You never have to type a path.");
+  console.log("");
+  console.log("  Do that now. It will introduce itself and ask you a few questions.");
   console.log("");
   console.log("  If anything ever seems off, type  /doctor");
   console.log("");
