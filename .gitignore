@@ -1,2 +1,6 @@
-.DS_Store
-*.log
+node_modules/
+package-lock.json
+plugins/*/package.json
+.search-index.json
+.heartbeat
+.reflected

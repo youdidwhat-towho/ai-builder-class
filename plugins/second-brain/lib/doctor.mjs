@@ -1,0 +1,207 @@
+#!/usr/bin/env node
+// /doctor — checks every part of the second brain and says what to do.
+//
+// This is the support desk. A beginner who hits a problem has exactly one
+// move: run this, read the red lines, do what they say. If that is not
+// enough, they paste the output to Christopher, who can diagnose without a
+// screen share.
+//
+// Every failing check must print a fix. A red line with no instruction is
+// worse than no check at all, because it tells someone something is broken
+// and leaves them stuck.
+
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
+import { vaultPath, today, dailyFile, CONFIG } from "../lib/vault.mjs";
+import { readSettings, SETTINGS, TAG } from "../lib/settings.mjs";
+import { scheduleExists, IS_WIN } from "../lib/platform.mjs";
+import { loadIndex } from "../lib/search.mjs";
+
+const KIT = path.join(os.homedir(), ".claude", "second-brain");
+// The install is a plugin now, so the universal fix is to reinstall it and
+// re-run setup. Keep this string in one place: every failing check prints it.
+const REINSTALL = "/plugin install second-brain@ai-builder-class   then   /setup";
+
+const results = [];
+function ok(name, detail) {
+  results.push({ state: "ok", name, detail });
+}
+function bad(name, detail, fix) {
+  results.push({ state: "bad", name, detail, fix });
+}
+function warn(name, detail, fix) {
+  results.push({ state: "warn", name, detail, fix });
+}
+
+function checkNode() {
+  const major = Number(process.versions.node.split(".")[0]);
+  if (major >= 18) ok("Node", `v${process.versions.node}`);
+  else
+    bad(
+      "Node",
+      `v${process.versions.node} is too old`,
+      "Install Node 18 or newer from nodejs.org, then close and reopen your terminal."
+    );
+}
+
+function checkVault() {
+  const vault = vaultPath();
+  if (!vault) {
+    bad(
+      "Vault",
+      "no vault found",
+      `Run:  ${REINSTALL}`
+    );
+    return null;
+  }
+  ok("Vault", vault);
+
+  const daily = path.join(vault, "daily");
+  if (fs.existsSync(daily)) ok("Daily folder", path.relative(vault, daily));
+  else
+    bad(
+      "Daily folder",
+      "missing",
+      `Run:  ${REINSTALL}   (this never touches your notes)`
+    );
+  return vault;
+}
+
+function checkHooks() {
+  let settings;
+  try {
+    settings = readSettings();
+  } catch (err) {
+    bad("Settings file", err.message, "Move the broken settings file aside, then run /setup again.");
+    return;
+  }
+
+  const hooks = settings.hooks || {};
+  const ours = (event) => (hooks[event] || []).filter((g) => g._kit === TAG);
+
+  if (ours("SessionStart").length)
+    ok("Greeting on open", "SessionStart hook installed");
+  else
+    bad(
+      "Greeting on open",
+      "not installed, so your brain will not know your state",
+      `Run:  ${REINSTALL}`
+    );
+
+  if (ours("PostToolUse").length) ok("Change log", "PostToolUse hook installed");
+  else
+    warn(
+      "Change log",
+      "not installed, so file changes are not being recorded",
+      `Run:  ${REINSTALL}`
+    );
+}
+
+function checkSchedule(vault) {
+  const beat = path.join(vault, ".heartbeat");
+  const registered = scheduleExists("com.secondbrain.heartbeat");
+
+  if (!registered) {
+    bad(
+      "Daily check-in",
+      "not scheduled",
+      IS_WIN
+        ? `Run:  ${REINSTALL}\n     If it still fails, Windows may be blocking scheduled tasks. Send this screen to Christopher.`
+        : `Run:  ${REINSTALL}`
+    );
+  } else if (!fs.existsSync(beat)) {
+    warn(
+      "Daily check-in",
+      "scheduled but has not run yet",
+      "Normal on install day. Check again tomorrow."
+    );
+  } else {
+    const hours = (Date.now() - fs.statSync(beat).mtimeMs) / 3_600_000;
+    if (hours < 26) ok("Daily check-in", `last ran ${Math.round(hours)}h ago`);
+    else
+      bad(
+        "Daily check-in",
+        `last ran ${Math.round(hours / 24)} days ago, it has stopped`,
+        `Run:  ${REINSTALL}`
+      );
+  }
+}
+
+function checkSearch(vault) {
+  const index = loadIndex(vault);
+  const n = index.entries?.length || 0;
+  if (n > 0) ok("Search", `${n} pieces indexed`);
+  else
+    warn(
+      "Search",
+      "nothing indexed yet",
+      "Normal if your vault is brand new. It indexes overnight, or ask Claude to reindex now."
+    );
+}
+
+function checkNotes(vault) {
+  const t = dailyFile(vault, today());
+  if (fs.existsSync(t)) ok("Today's note", path.basename(t));
+  else
+    warn(
+      "Today's note",
+      "not created yet",
+      'Say "capture this: testing my second brain" and it will appear.'
+    );
+
+  const boot = path.join(vault, "BOOTSTRAP.md");
+  if (fs.existsSync(boot))
+    warn(
+      "Onboarding",
+      "not finished yet",
+      "Open Claude in your vault folder. It will interview you, then this goes away."
+    );
+  else ok("Onboarding", "done");
+}
+
+function main() {
+  console.log("");
+  console.log("  SECOND BRAIN CHECKUP");
+  console.log("  " + "-".repeat(52));
+
+  checkNode();
+  const vault = checkVault();
+  if (vault) {
+    checkHooks();
+    checkSchedule(vault);
+    checkSearch(vault);
+    checkNotes(vault);
+  }
+
+  console.log("");
+  for (const r of results) {
+    const mark = r.state === "ok" ? "  OK  " : r.state === "warn" ? " WARN " : " FAIL ";
+    console.log(`  [${mark}] ${r.name}: ${r.detail}`);
+  }
+
+  const broken = results.filter((r) => r.state !== "ok");
+  console.log("");
+  if (!broken.length) {
+    console.log("  Everything is working.");
+    console.log("");
+    return;
+  }
+
+  console.log("  WHAT TO DO");
+  console.log("  " + "-".repeat(52));
+  for (const r of broken) {
+    console.log(`\n  ${r.name}`);
+    console.log(`     ${r.fix}`);
+  }
+  console.log("");
+  console.log("  Still stuck? Copy everything above and send it to Christopher.");
+  console.log("");
+}
+
+try {
+  main();
+} catch (err) {
+  console.log("\n  The checkup itself failed: " + err.message);
+  console.log("\n  Run:  " + REINSTALL + "\n");
+}

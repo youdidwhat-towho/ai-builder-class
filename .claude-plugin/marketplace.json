@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ai-builder-class",
+  "owner": {
+    "name": "Hardwired Collective"
+  },
+  "metadata": {
+    "description": "The AI Builder Class second brain, installable in one step.",
+    "version": "2.0.0"
+  },
+  "plugins": [
+    {
+      "name": "second-brain",
+      "source": "./plugins/second-brain",
+      "description": "A working second brain for Claude Code. Greets you with your own state every session, logs every change, indexes your notes for search by meaning, reflects nightly, and checks in each morning. Built for people who have never used a terminal.",
+      "category": "productivity",
+      "author": {
+        "name": "Christopher Bole"
+      }
+    }
+  ]
+}
