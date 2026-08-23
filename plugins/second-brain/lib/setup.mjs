@@ -73,8 +73,20 @@ async function main() {
 
   // ---- Vault -----------------------------------------------------------
   const requested = process.argv[2];
+
+  // Re-running setup with no argument must NOT invent a new vault. If they are
+  // already set up, attach to the vault in the config. Defaulting to
+  // ~/second-brain here silently repointed the config, the scheduled jobs, and
+  // the desktop icon at an empty folder while a client's real vault sat
+  // untouched somewhere else. Found live, 2026-08-23.
+  let configured = null;
+  try {
+    const prev = JSON.parse(fs.readFileSync(CONFIG, "utf8"));
+    if (prev?.vault && fs.existsSync(prev.vault)) configured = prev.vault;
+  } catch {}
+
   const vault = path.resolve(
-    (requested || path.join(os.homedir(), "second-brain")).replace(/^~(?=$|[/\\])/, os.homedir())
+    (requested || configured || path.join(os.homedir(), "second-brain")).replace(/^~(?=$|[/\\])/, os.homedir())
   );
 
   try {
@@ -154,9 +166,12 @@ async function main() {
       JSON.stringify({ name: "second-brain", private: true, type: "module" }, null, 2)
     );
     console.log("         installing search, this takes a minute the first time ...");
+    // Windows: node 20.12+ refuses to execFile a .cmd without a shell (EINVAL),
+    // so npm.cmd never runs and search silently never installs.
     execFileSync(npm, ["install", "--silent", "--no-audit", "--no-fund", "@huggingface/transformers"], {
       cwd: PLUGIN,
       stdio: "pipe",
+      shell: process.platform === "win32",
     });
     report("Search", "ok", "installed");
 
@@ -176,10 +191,13 @@ async function main() {
       );
     }
   } catch (err) {
+    // Print the real reason. A generic message here sent two people chasing a
+    // retry that could never work.
+    const why = (err.stderr?.toString() || err.message || "").trim().split("\n").slice(-2).join(" ");
     report(
       "Search",
       "warn",
-      "could not install. Everything else works. Say 'set up search' later to retry."
+      `could not install. Everything else works. Reason: ${why || "unknown"}`
     );
   }
 
