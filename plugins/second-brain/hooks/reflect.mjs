@@ -15,6 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { vaultPath, today, daysAgo, dailyFile, ledger } from "../lib/vault.mjs";
+import { reindex } from "../lib/search.mjs";
 
 const STOP = new Set(
   ("the a an and or but if then than that this these those with without for from into onto " +
@@ -164,4 +165,23 @@ try {
 } catch (err) {
   console.error("reflect failed: " + err.message);
   process.exit(1);
+}
+
+// Refresh the search index.
+//
+// Deliberately OUTSIDE main(). main() returns early on a night with too few
+// notes to find a theme in, and the index still needs refreshing on those
+// nights — arguably more, since that is when a vault is quietly filling with
+// captures nobody has asked about yet.
+//
+// Also deliberately last: reflection is the visible job. If embedding is slow
+// or the model is missing, the student still gets their reflection.
+//
+// This is what /doctor has been promising ("it indexes overnight") since
+// 2026-08-22. Nothing was calling reindex() until 2026-08-23.
+const vaultForIndex = vaultPath();
+if (vaultForIndex) {
+  reindex(vaultForIndex)
+    .then((r) => console.log(`reflect: indexed ${r.chunks} pieces (${r.embedded} new)`))
+    .catch((err) => console.error("reflect: indexing skipped, " + err.message));
 }

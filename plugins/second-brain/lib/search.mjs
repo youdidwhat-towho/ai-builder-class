@@ -198,3 +198,82 @@ export async function search(vault, query, limit = 5) {
   }
   return { hits };
 }
+
+// ---------------------------------------------------------------------------
+// CLI entry point.
+//
+// reindex() and search() were both complete and correct on 2026-08-22 and
+// neither had a caller. /setup installed 480MB of model and reported
+// "Search: installed", nothing ever built an index, and /doctor told students
+// it would sort itself out overnight. It would not have. This is the wiring.
+//
+//   node search.mjs --reindex        build or refresh the index
+//   node search.mjs "some question"  search it
+// ---------------------------------------------------------------------------
+
+import { pathToFileURL } from "node:url";
+import { vaultPath } from "./vault.mjs";
+
+async function cli() {
+  const vault = vaultPath();
+  if (!vault) {
+    console.log("No second brain found. Run /setup first.");
+    process.exitCode = 1;
+    return;
+  }
+
+  const args = process.argv.slice(2);
+
+  if (args[0] === "--reindex") {
+    console.log("  Indexing your notes. The first run downloads the model, so give it a minute.");
+    try {
+      const r = await reindex(vault, {
+        onProgress: (n) => process.stdout.write(`\r  ${n} pieces embedded ...`),
+      });
+      process.stdout.write("\r");
+      console.log(`  Indexed ${r.chunks} pieces across ${r.files} notes (${r.embedded} new, ${r.reused} unchanged).`);
+    } catch (err) {
+      console.log(`  Could not index: ${err.message}`);
+      console.log("  If this says it cannot find @huggingface/transformers, run /setup again.");
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  const query = args.join(" ").trim();
+  if (!query) {
+    console.log('Usage: node search.mjs "what you are looking for"   |   node search.mjs --reindex');
+    process.exitCode = 1;
+    return;
+  }
+
+  try {
+    const res = await search(vault, query, 5);
+    if (res.error) {
+      // 🔑 Never let "no index" read as "no results". They look identical and
+      // mean opposite things.
+      console.log(`  NO INDEX YET. This is not "nothing matched" — nothing has been indexed.`);
+      console.log(`  Fix: ask Claude to reindex, or run /setup again.`);
+      process.exitCode = 1;
+      return;
+    }
+    if (!res.hits.length) {
+      console.log(`  Nothing matched "${query}". The index exists, so this really is empty.`);
+      return;
+    }
+    console.log(`  Best matches for "${query}":`);
+    console.log("");
+    for (const h of res.hits) {
+      console.log(`  ${h.file}  (${h.score.toFixed(3)})`);
+      console.log(`      ${h.text.replace(/\s+/g, " ").slice(0, 200)}`);
+      console.log("");
+    }
+  } catch (err) {
+    console.log(`  Search failed: ${err.message}`);
+    process.exitCode = 1;
+  }
+}
+
+if (import.meta.url === pathToFileURL(process.argv[1] || "").href) {
+  cli();
+}

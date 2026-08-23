@@ -154,6 +154,22 @@ async function main() {
       stdio: "pipe",
     });
     report("Search", "ok", "installed");
+
+    // Build the index now. Without this, /setup reports "installed", nothing
+    // ever indexes, and /doctor tells them it sorts itself out overnight —
+    // which nothing did. Day one should not be empty.
+    try {
+      const { reindex } = await import(path.join(HERE, "search.mjs"));
+      console.log("         indexing your notes ...");
+      const r = await reindex(vault);
+      report("Search index", "ok", `${r.chunks} pieces across ${r.files} notes`);
+    } catch (err) {
+      report(
+        "Search index",
+        "warn",
+        `model installed but indexing failed (${err.message}). Ask Claude to reindex later.`
+      );
+    }
   } catch (err) {
     report(
       "Search",

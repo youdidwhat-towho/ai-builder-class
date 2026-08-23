@@ -11,6 +11,13 @@ just a starting point.
   ARV" is a rule. "123 Main St is under contract" is a fact.
 - **Tell me what you did.** After you change something, say which file in one
   line.
+- **Search by meaning before you guess.** When I ask what I said about
+  something, or to find a note I cannot name, run `/search` rather than
+  guessing at filenames. It matches meaning, so it finds the right note even
+  when I use different words than I wrote.
+- **Empty and blocked are different answers.** If a search or a lookup comes
+  back with nothing, say which one it was. "I found nothing" and "I could not
+  look" sound the same and mean opposite things.
 
 ## Folders
 
@@ -23,3 +30,4 @@ just a starting point.
 | `decisions/` | Calls made, and why |
 | `reference/` | Anything worth keeping |
 | `connections/` | Written by me overnight, not by you |
+| `operations/` | Processes you run more than once |
