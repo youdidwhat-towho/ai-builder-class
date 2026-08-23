@@ -18,10 +18,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
+import { pathToFileURL } from "node:url";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
+
+/* Windows: node's ESM loader rejects a bare "C:\..." path.
+   Every dynamic import of a local file has to go through a file:// URL. */
+const load = (file) => import(pathToFileURL(path.join(HERE, file)).href);
 const PLUGIN = path.dirname(HERE);
 const CONFIG = path.join(os.homedir(), ".claude", "second-brain.json");
 
@@ -87,7 +92,7 @@ async function main() {
 
   // ---- Today's note ------------------------------------------------------
   try {
-    const { ensureDaily } = await import(path.join(HERE, "vault.mjs"));
+    const { ensureDaily } = await load("vault.mjs");
     ensureDaily(vault);
     report("Today's note", "ok", "created");
   } catch (err) {
@@ -96,7 +101,7 @@ async function main() {
 
   // ---- Daily jobs --------------------------------------------------------
   try {
-    const { scheduleDaily } = await import(path.join(HERE, "platform.mjs"));
+    const { scheduleDaily } = await load("platform.mjs");
     const beat = scheduleDaily({
       label: "com.secondbrain.heartbeat",
       scriptPath: path.join(PLUGIN, "hooks", "heartbeat.mjs"),
@@ -127,7 +132,7 @@ async function main() {
 
   // ---- Desktop icon -------------------------------------------------
   try {
-    const { createLauncher, hasWindowsTerminal } = await import(path.join(HERE, "launcher.mjs"));
+    const { createLauncher, hasWindowsTerminal } = await load("launcher.mjs");
     const res = createLauncher(vault);
     if (res.ok) {
       report("Desktop icon", "ok", `"${path.basename(res.file)}" on your Desktop`);
@@ -159,7 +164,7 @@ async function main() {
     // ever indexes, and /doctor tells them it sorts itself out overnight —
     // which nothing did. Day one should not be empty.
     try {
-      const { reindex } = await import(path.join(HERE, "search.mjs"));
+      const { reindex } = await load("search.mjs");
       console.log("         indexing your notes ...");
       const r = await reindex(vault);
       report("Search index", "ok", `${r.chunks} pieces across ${r.files} notes`);
