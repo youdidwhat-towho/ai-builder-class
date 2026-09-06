@@ -34,7 +34,7 @@ You may run TLDR several times a day, once per real conversation. You run
 
 Save to `daily/YYYY-MM-DD-<short-topic-slug>.md`. A separate file, never appended
 to the plain `daily/YYYY-MM-DD.md` capture note. The slug is two to five words
-describing the actual subject, so it is findable later: `2026-08-22-oak-street-offer.md`,
+describing the actual subject, so it is findable later: `2026-08-22-henderson-scope-call.md`,
 not `2026-08-22-session.md`.
 
 ```markdown
@@ -89,9 +89,9 @@ recap of the recap.
 
 ## The rules
 
-1. **Be specific or do not bother.** "Talked about the Oak Street deal" is worth
-   nothing in three weeks. "Offered 182k on 1247 Oak, seller wants 195k, roof is
-   the gap, decide by Friday" is worth something.
+1. **Be specific or do not bother.** "Talked about the Henderson job" is worth
+   nothing in three weeks. "Quoted 182k on Henderson, they want 195k, the
+   scope gap is the roof, decide by Friday" is worth something.
 2. **Write decisions, not activity.** What you concluded, and why. Anyone can
    reconstruct what was discussed. Nobody can reconstruct why you chose.
 3. **Record what did not work.** The dead end you already walked down is one of

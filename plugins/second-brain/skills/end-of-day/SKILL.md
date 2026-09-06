@@ -12,7 +12,7 @@ Five minutes that make tomorrow start warm instead of cold.
 1. **Read today's `daily/` note.** All of it. Also read any `daily/YYYY-MM-DD-<topic>.md`
    session notes written today by `tldr`, including their `## Handoff` sections. Those
    hold the reasoning; the plain daily note holds the captures.
-2. **Propose the filing.** List what should become a deal file, a contact, a
+2. **Propose the filing.** List what should become a project file, a person, a
    property card, or a decision. Show the list, wait for a yes, then write. Never
    move anything out of the daily note, only copy forward. The daily note is the
    permanent record of what happened when.

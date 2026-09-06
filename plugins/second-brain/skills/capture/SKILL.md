@@ -27,7 +27,7 @@ That is it. Then confirm in one short line and get out of the way.
 
 ## The rules
 
-1. **Never ask where it should go.** Not "should this be a deal or a contact?"
+1. **Never ask where it should go.** Not "should this be a project or a person?"
    Not "which folder?" The answer is always today's daily note. Filing happens
    later, by you, not by them.
 2. **Never refuse a capture.** Half an address, a name with no context, a number
@@ -36,13 +36,13 @@ That is it. Then confirm in one short line and get out of the way.
    rewrite their phrasing into yours, and never summarize a capture down to a
    sentence. The detail is the value.
 4. **Timestamp everything.** Use their local time.
-5. **Do not create other files during a capture.** No deal card, no contact file,
+5. **Do not create other files during a capture.** No project file, no person file,
    no follow-up task, unless they explicitly ask. Capture is capture.
 6. **One line back.** "Got it, 2:14pm." They are mid-thought, not waiting on you.
 
 ## Filing, later
 
 When they ask you to process the day, or at end of day, read the daily note and
-propose what should become a deal, a contact, a property card or a decision.
+propose what should become a project, a person, or a decision.
 **Propose, then do it once they say yes.** The daily note is append only, so
 nothing gets moved out of it. It stays as the record of what happened when.

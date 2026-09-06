@@ -11,11 +11,12 @@ Nothing here is a demo. It all runs.
 
 | Folder | What it is |
 |---|---|
-| `vault-starter/` | Your second brain. A working Obsidian vault, not an empty template. |
-| `claude-config/skills/` | Ten skills. Onboarding, capture, deal intake, checkpoint, tldr, end of day, coaching, updates, and two comps tools. |
+| `vault-starter/` | Your second brain. A working Obsidian vault, not an empty template. General on purpose: no industry, no vendors. |
+| `claude-config/skills/` | Ten skills. Onboarding, capture, intake, checkpoint, tldr, end of day, maintain, week review, coaching, and updates. |
 | `claude-config/commands/` | Slash commands. Start with `/pickup`. |
 | `claude-config/settings.example.json` | A working hook, with notes on what hooks are for. |
 | `docs/` | Read `first-hour.md` first. |
+| `client-addons/` | Not shipped. The pattern for building somebody's industry layer at install, plus one worked example. |
 | `UPDATE.md` | How to pull new skills later. No GitHub account needed. |
 
 ---
@@ -86,24 +87,42 @@ That decision is where capture dies. Filing happens later and Claude does it.
 
 ---
 
+## The two that keep it true
+
+Capture is what makes a second brain useful in week one. These are what keep
+it useful in month six, when half of what it tells you stopped being true.
+
+**Every couple of weeks, say `maintain`.** It shows you what has gone quiet
+or finished, you say what moves to `archive/`. Archived is not deleted, it is
+just out of the way of everyday questions.
+
+**Once a week, say `week-review`.** It tells you what it thinks changed in
+your business, specific enough to be wrong. You correct it, and it writes the
+correction down on the spot. Then you rate the week, and a low score gets you
+asked why instead of thanked.
+
+Skipping these is how people end up with a vault full of March.
+
+---
+
 ## What each skill does
 
 | Skill | Say this |
 |---|---|
 | `second-brain-onboarding` | "let's set up my second brain" |
 | `capture` | "capture this", or just start talking |
-| `deal-intake` | "new deal", or paste a lead in any shape |
+| `intake` | "intake this", or paste anything unstructured |
 | `checkpoint` | "checkpoint", "save where we are", "I have to go" |
 | `tldr` | "tldr", "save this session", "write this up" |
 | `end-of-day` | "wrap up", "close out the day" |
+| `maintain` | "maintain", "prune", "what's gone stale". Every couple of weeks. |
+| `week-review` | "week review". Once a week. It tells you what it thinks it learned and you correct it. |
 | `coaching-callouts` | Nothing. Always on. It teaches while you work. |
 | `update-kit` | "update my class skills" |
-| `comps-propwire` | "run comps on 1247 Oak" (free, all 50 states) |
-| `comps-propelio` | Same, for non-disclosure states |
 
-The comps skills drive a real browser using your own logged-in account, so you need
-browser access connected and you need to already be signed in to those sites. They
-will never try to log in for you.
+Nothing in that list assumes an industry or a piece of software. Whatever you
+actually do for a living gets added on top, at install, built around the tools
+you already use. See `client-addons/`.
 
 ---
 

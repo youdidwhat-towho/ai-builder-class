@@ -37,8 +37,8 @@ session.
 
 1. **Do not summarize the whole day.** Only what has happened since the last checkpoint,
    or since the session started.
-2. **Write decisions, not activity.** "Decided to pass on 1247 Oak, roof plus foundation"
-   beats "discussed 1247 Oak."
+2. **Write decisions, not activity.** "Decided to pass on Henderson, scope
+   plus timeline" beats "discussed Henderson."
 3. **Never end the session.** To write the whole conversation up when it is actually
    over, that is `tldr`. To close out the day across every conversation, that is
    `end-of-day`.
