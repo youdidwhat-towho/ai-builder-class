@@ -1,0 +1,10 @@
+# Search index, rebuilt on demand. Large and machine-specific.
+.search-index.json
+
+# Local state written by the daily jobs.
+.heartbeat
+.reflected
+.maintenance
+.backup
+
+.DS_Store

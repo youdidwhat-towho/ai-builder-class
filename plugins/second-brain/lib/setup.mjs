@@ -126,16 +126,25 @@ async function main() {
       hour: 22,
       minute: 0,
     });
+    // After reflection, so the night's connection note rides along.
+    const backup = scheduleDaily({
+      label: "com.secondbrain.backup",
+      scriptPath: path.join(PLUGIN, "hooks", "backup.mjs"),
+      hour: 22,
+      minute: 20,
+    });
 
-    if (beat.ok && reflect.ok) report("Daily jobs", "ok", "7:30am check-in, 10pm reflection");
+    if (beat.ok && reflect.ok && backup.ok)
+      report("Daily jobs", "ok", "7:30am check-in, 10pm reflection, 10:20pm backup");
     else {
       // Not fatal. Everything else works without a scheduler, and a
       // student whose machine refuses scheduled tasks should still end up
       // with a functioning second brain plus a clear message.
+      const why = [beat, reflect, backup].find((j) => !j.ok)?.detail;
       report(
         "Daily jobs",
         "warn",
-        `could not schedule (${beat.detail || reflect.detail}). Your brain still works, it just will not check in on its own.`
+        `could not schedule (${why}). Your brain still works, it just will not check in or back up on its own.`
       );
     }
   } catch (err) {

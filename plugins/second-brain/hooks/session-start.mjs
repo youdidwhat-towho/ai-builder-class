@@ -19,6 +19,7 @@ import {
   listNotes,
   titleOf,
   read,
+  backupState,
 } from "../lib/vault.mjs";
 
 function main() {
@@ -78,13 +79,12 @@ function main() {
 
   // Open work, counted not listed. A count is scannable, a list is noise.
   const counts = [
-    ["deal", listNotes(vault, "deals").length],
-    ["property", listNotes(vault, "properties").length],
-    ["contact", listNotes(vault, "contacts").length],
+    ["project", listNotes(vault, "projects").length],
+    ["person", listNotes(vault, "people").length],
   ].filter(([, n]) => n > 0);
   if (counts.length) {
     const plural = (word, n) =>
-      n === 1 ? word : word === "property" ? "properties" : word + "s";
+      n === 1 ? word : word === "person" ? "people" : word + "s";
     say(
       "IN THE VAULT: " +
         counts.map(([k, n]) => `${n} ${plural(k, n)}`).join("  ·  ")
@@ -107,6 +107,7 @@ function main() {
   // Heartbeat health, in front of them rather than buried in a log.
   // A silent heartbeat is worse than none, so a stale one says so here.
   say(heartbeatLine(vault));
+  say(backupLine(vault));
 
   console.log(out.join("\n"));
 }
@@ -129,6 +130,22 @@ function heartbeatLine(vault) {
   } catch {
     return "Heartbeat: not running yet.";
   }
+}
+
+/** Where the vault was last night. Silence here would be the failure. */
+function backupLine(vault) {
+  const s = backupState(vault);
+  if (!s) return "Backup: has not run yet.";
+  const age = (iso) => Math.round((Date.now() - new Date(iso).getTime()) / 3_600_000);
+  if (s.state === "failed") {
+    return `Backup: FAILED last night (${s.error || "unknown reason"}). Your notes are only on this machine until it is fixed. Run /doctor.`;
+  }
+  if (s.state === "local") {
+    return "Backup: saved on this machine only. No online copy is connected yet.";
+  }
+  const h = age(s.pushedAt || s.at);
+  if (h < 30) return `Backup: online copy is current (${h}h ago).`;
+  return `Backup: online copy is ${Math.round(h / 24)} day(s) old. The nightly job may have stopped. Run /doctor.`;
 }
 
 try {

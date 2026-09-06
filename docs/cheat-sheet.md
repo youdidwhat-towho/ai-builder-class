@@ -10,14 +10,15 @@ Keep this open during class. One page, nothing else to memorize.
 |---|---|
 | Set up your vault (do this first) | `let's set up my second brain` |
 | Capture anything | `capture this:` then just talk |
-| Add a deal | `new deal` then paste whatever you have |
+| File something messy | `intake this` then paste whatever you have |
 | Ask about your own stuff | `what's in my daily note?` |
-| Run comps | `run comps on 1247 Oak Street` |
+| Find a note you cannot name | `/search` then say what it was about |
 | Save mid-session, keep working | `checkpoint` |
 | Save the whole conversation | `tldr` |
 | Close out the day | `wrap up` |
 | Pick up tomorrow | `/pickup` |
 | Check your skills loaded | `what skills do you have?` |
+| Check everything is working | `/doctor` |
 | Turn down the coaching | `fewer callouts` |
 | Get the newest skills | `update my class skills` |
 
@@ -72,15 +73,31 @@ Filing happens later, and Claude does it.
 ```
 second-brain/
   daily/         <- the front door. Everything starts here.
-  deals/         <- one file per live deal
-  contacts/      <- people
-  properties/    <- one card per property, kept forever
+  projects/      <- one file per thing you are trying to finish
+  people/        <- one file per real working relationship
   reference/     <- save anything, find it later
   decisions/     <- what you decided and why
   operations/    <- your checklists and processes
+  archive/       <- finished, not deleted
   CLAUDE.md      <- your standing instructions
-  MEMORY.md      <- what you're working on right now
+  MEMORY.md      <- decisions waiting on you
 ```
+
+Whatever you actually do for a living gets its own folders on top of these,
+added at install and named the way you say them.
+
+---
+
+## Three things run on their own
+
+| When | What | Where you see it |
+|---|---|---|
+| 7:30 every morning | The check-in. Reads your vault and says one true thing about it. | The top of today's daily note |
+| 10:00 every night | Reflection. Finds what kept coming up this week. | `connections/`, and the greeting next morning |
+| 10:20 every night | Backup. Saves everything that changed and pushes it online. | The greeting says whether last night landed |
+
+None of them need you at the keyboard. If any of them stop, the morning
+greeting says so in plain words. `/doctor` says why.
 
 ---
 

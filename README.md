@@ -105,6 +105,26 @@ Skipping these is how people end up with a vault full of March.
 
 ---
 
+## The one that keeps it at all
+
+**Every night at 10:20 the vault backs itself up.** Whatever changed that day
+gets saved, and if an online copy is connected it gets pushed there. You do
+nothing.
+
+Three states, and the morning greeting always says which one you are in:
+
+| It says | It means |
+|---|---|
+| online copy is current | your vault exists somewhere other than this laptop |
+| saved on this machine only | history is kept, but a lost laptop is a lost vault. Ask to get the online copy connected. |
+| FAILED last night | there is an online copy and last night did not reach it. `/doctor` says why. |
+
+Connecting the online copy needs a free GitHub account and about five
+minutes, and it gets done at install. The repository is private. Nobody but
+you can read it.
+
+---
+
 ## What each skill does
 
 | Skill | Say this |

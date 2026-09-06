@@ -24,6 +24,7 @@ import {
   ensureDaily,
   appendDaily,
   listNotes,
+  backupState,
 } from "../lib/vault.mjs";
 import { survey, signalQuality, passDue, daysSinceLastPass } from "../lib/maintenance.mjs";
 
@@ -64,6 +65,12 @@ function pickNudge(vault) {
     return "this is day one. Capture anything at all today, and tomorrow I will have something to tell you.";
   }
 
+  // A backup that failed outranks every habit nudge. Losing the vault
+  // makes the habits moot, and a push that fails once usually keeps
+  // failing until a human looks.
+  const backup = backupNudge(vault);
+  if (backup) return backup;
+
   // Did yesterday get closed out? This is the habit the whole loop rests on.
   const y = dailyFile(vault, daysAgo(1));
   if (fs.existsSync(y)) {
@@ -83,9 +90,9 @@ function pickNudge(vault) {
   }
 
   // Something captured but never filed.
-  const deals = listNotes(vault, "deals").length;
-  if (deals === 0) {
-    return "there are no deals in the vault yet. Say `deal intake` and paste anything messy you have.";
+  const projects = listNotes(vault, "projects").length;
+  if (projects === 0) {
+    return "there are no projects in the vault yet. Say `intake this` and paste anything messy you have.";
   }
 
   // The maintenance pass. This outranks any single stale note, because a
@@ -114,7 +121,36 @@ function pickNudge(vault) {
     return `${worst.name} hasn't been touched in ${worst.days} days${hedge}. Still live, or dead?`;
   }
 
-  return `${deals} deal${deals === 1 ? "" : "s"} in the vault and everything touched recently. Nothing is rotting.`;
+  return `${projects} project${projects === 1 ? "" : "s"} in the vault and everything touched recently. Nothing is rotting.`;
+}
+
+/**
+ * The backup's voice in the morning note.
+ *
+ * Failed: every day until fixed. Stopped: every day until fixed. No online
+ * copy at all: once a week, because a laptop-only vault is a real risk but
+ * a daily nag about it is how people learn to skip the check-in.
+ */
+function backupNudge(vault) {
+  const s = backupState(vault);
+  const days = (iso) => (Date.now() - new Date(iso).getTime()) / 86_400_000;
+  if (!s) {
+    // Never ran. Give the scheduler a couple of nights before calling it.
+    if (ageInDays(vault) >= 3) {
+      return "the nightly backup has never run. Say `/doctor` and it will say why.";
+    }
+    return null;
+  }
+  if (s.state === "failed") {
+    return `last night's backup did not reach the online copy (${s.error || "unknown reason"}). Your notes are only on this machine until that is fixed. Say \`/doctor\`.`;
+  }
+  if (s.state === "pushed" && days(s.pushedAt || s.at) > 3) {
+    return `the online backup is ${Math.round(days(s.pushedAt || s.at))} days old, so the nightly job has stopped. Say \`/doctor\`.`;
+  }
+  if (s.state === "local" && ageInDays(vault) >= 3 && Math.floor(ageInDays(vault)) % 7 === 0) {
+    return "your notes are saved every night, but only on this laptop. Nothing is online yet. A lost or dead machine is a lost vault. Ask Christopher to connect the backup.";
+  }
+  return null;
 }
 
 /** How long this vault has existed, from the install stamp. */

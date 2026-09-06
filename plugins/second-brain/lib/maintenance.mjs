@@ -30,9 +30,8 @@ import { listNotes } from "./vault.mjs";
 
 /** Folders that hold the user's own thinking and can therefore go stale. */
 export const CURATED = [
-  "deals",
-  "contacts",
-  "properties",
+  "projects",
+  "people",
   "decisions",
   "operations",
   "reference",

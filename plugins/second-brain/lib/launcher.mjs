@@ -69,10 +69,30 @@ function windowsLauncher(vault) {
   };
 }
 
+/**
+ * Where `claude` and `node` live right now, so the icon does not depend on
+ * the shell's startup files. On 2026-09-06 a client whose login shell was
+ * bash got "claude: command not found" from an icon that worked fine in
+ * zsh, because the install had only taught zsh where to look. The icon
+ * runs from whatever shell the Mac hands it; it has to know on its own.
+ */
+function toolDirs() {
+  const dirs = new Set([path.dirname(process.execPath)]);
+  try {
+    const found = execFileSync("sh", ["-lc", "command -v claude"], { encoding: "utf8", stdio: "pipe" }).trim();
+    if (found) dirs.add(path.dirname(found));
+  } catch {
+    // not on PATH from here; the shell may still find it
+  }
+  return [...dirs];
+}
+
 function macLauncher(vault) {
   const file = path.join(desktopDir(), "Second Brain.command");
+  const extra = toolDirs().map((d) => JSON.stringify(d)).join(":");
   const body = `#!/bin/bash
 # Opens your second brain. Double-click this.
+export PATH=${extra}:"$PATH"
 cd ${JSON.stringify(vault)} || exit 1
 exec claude
 `;

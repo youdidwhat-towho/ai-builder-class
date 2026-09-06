@@ -13,7 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
-import { vaultPath, today, dailyFile, CONFIG } from "../lib/vault.mjs";
+import { vaultPath, today, dailyFile, CONFIG, backupState } from "../lib/vault.mjs";
 import { readSettings, SETTINGS, TAG } from "../lib/settings.mjs";
 import { scheduleExists, IS_WIN } from "../lib/platform.mjs";
 import { loadIndex } from "../lib/search.mjs";
@@ -125,6 +125,70 @@ function checkSchedule(vault) {
         `last ran ${Math.round(hours / 24)} days ago, it has stopped`,
         `Run:  ${REINSTALL}`
       );
+  }
+}
+
+/** Reflection is what makes the vault get smarter instead of just bigger. */
+function checkReflection(vault) {
+  if (!scheduleExists("com.secondbrain.reflect")) {
+    bad("Nightly reflection", "not scheduled", `Run:  ${REINSTALL}`);
+    return;
+  }
+  const mark = path.join(vault, ".reflected");
+  if (!fs.existsSync(mark)) {
+    warn("Nightly reflection", "scheduled but has not run yet", "Normal on install day. Check again tomorrow.");
+    return;
+  }
+  const hours = (Date.now() - fs.statSync(mark).mtimeMs) / 3_600_000;
+  if (hours < 30) ok("Nightly reflection", `last ran ${Math.round(hours)}h ago`);
+  else
+    bad(
+      "Nightly reflection",
+      `last ran ${Math.round(hours / 24)} days ago, it has stopped`,
+      `Run:  ${REINSTALL}`
+    );
+}
+
+/**
+ * Is there a copy of this vault anywhere but here?
+ *
+ * The one check whose failure a person cannot see for themselves. A vault
+ * that stops pushing looks identical to one that pushes every night, right
+ * up to the day the laptop dies.
+ */
+function checkBackup(vault) {
+  if (!scheduleExists("com.secondbrain.backup")) {
+    bad("Nightly backup", "not scheduled", `Run:  ${REINSTALL}`);
+    return;
+  }
+  const s = backupState(vault);
+  if (!s) {
+    warn("Nightly backup", "scheduled but has not run yet", "Normal on install day. Check again tomorrow.");
+    return;
+  }
+  const hours = (Date.now() - new Date(s.pushedAt || s.at).getTime()) / 3_600_000;
+  if (s.state === "failed") {
+    bad(
+      "Nightly backup",
+      `the last push failed: ${s.error || "unknown reason"}`,
+      "Your notes are saved on this machine but not online. If the reason mentions login, " +
+        "permission, or authentication, the GitHub connection needs redoing: send this screen to Christopher. " +
+        "If it mentions the network, it will retry tonight on its own."
+    );
+  } else if (s.state === "local") {
+    warn(
+      "Nightly backup",
+      "saved on this machine every night, but nowhere else",
+      "Ask Christopher to connect an online copy (needs a free GitHub account). Until then, a lost laptop is a lost vault."
+    );
+  } else if (hours < 30) {
+    ok("Nightly backup", `online copy is current, pushed ${Math.round(hours)}h ago`);
+  } else {
+    bad(
+      "Nightly backup",
+      `online copy is ${Math.round(hours / 24)} days old, the job has stopped`,
+      `Run:  ${REINSTALL}   then check again tomorrow.`
+    );
   }
 }
 
@@ -240,6 +304,8 @@ function main() {
   if (vault) {
     checkHooks();
     checkSchedule(vault);
+    checkReflection(vault);
+    checkBackup(vault);
     checkSearch(vault);
     checkNotes(vault);
     checkSubstance(vault);

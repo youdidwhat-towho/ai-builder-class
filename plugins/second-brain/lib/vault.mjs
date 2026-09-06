@@ -105,6 +105,21 @@ export function read(vault, rel) {
   }
 }
 
+/**
+ * Where last night's backup landed. Written by hooks/backup.mjs, read by
+ * the heartbeat, the session greeting and /doctor, so all three tell the
+ * same story. null means the backup has never run.
+ *
+ *   { state: "pushed" | "local" | "failed", at, pushedAt?, remote?, error? }
+ */
+export function backupState(vault) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(vault, ".backup"), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 /** Append one line to the ledger, the vault-wide activity trail. */
 export function ledger(vault, line) {
   const file = path.join(vault, "LEDGER.md");
