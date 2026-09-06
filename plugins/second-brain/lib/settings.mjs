@@ -88,5 +88,7 @@ export function hookSpec(hooksDir) {
         hooks: [{ type: "command", command: node("log-change.mjs") }],
       },
     ],
+    // The voice rules in CLAUDE.md are a suggestion. This makes them a gate.
+    Stop: [{ hooks: [{ type: "command", command: node("voice-guard.mjs") }] }],
   };
 }

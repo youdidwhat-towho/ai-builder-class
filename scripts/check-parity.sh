@@ -70,7 +70,7 @@ fi
 # 4. The vault template has to SAY something. Presence is not substance, and
 #    substance is the only part anybody actually bought.
 # Phrases must be short enough to survive line wrapping in the markdown.
-promises="capture door|which file|by meaning|Empty and blocked|last_touched|archive|maintain|week-review"
+promises="capture door|which file|by meaning|Empty and blocked|last_touched|archive|maintain|week-review|em dash|callout"
 claude="$PLUGIN/vault-template/CLAUDE.md"
 missing_rules=""
 IFS='|'
@@ -79,7 +79,7 @@ for rule in $promises; do
 done
 unset IFS
 if [ -z "$missing_rules" ]; then
-  say "  [  OK  ] Vault contract: all 8 rules present in CLAUDE.md"
+  say "  [  OK  ] Vault contract: all $(echo "$promises" | tr '|' '\n' | wc -l | tr -d ' ') rules present in CLAUDE.md"
 else
   say "  [ FAIL ] Vault CLAUDE.md is missing:$missing_rules"
   say "            This is the hollow-kit failure. It installs fine and says nothing."

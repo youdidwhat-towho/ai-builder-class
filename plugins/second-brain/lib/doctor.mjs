@@ -256,6 +256,8 @@ function checkSubstance(vault) {
     ["active vs archived memory", /archive/i],
     ["a maintenance habit", /maintain/i],
     ["a weekly correction loop", /week-review|week review/i],
+    ["plain voice, no em dashes", /em dash/i],
+    ["coaching callouts on", /callout/i],
   ];
   const missing = promises.filter(([, re]) => !re.test(text)).map(([label]) => label);
 
@@ -265,7 +267,9 @@ function checkSubstance(vault) {
     bad(
       "Instructions",
       `${missing.length} of ${promises.length} missing: ${missing.join(", ")}`,
-      "Your CLAUDE.md is missing rules it should have shipped with. " + REINSTALL
+      "Your CLAUDE.md is missing rules it should have shipped with. Reinstalling never rewrites " +
+        "CLAUDE.md, so open Claude in your vault and say: add the rules my CLAUDE.md is missing " +
+        "from the kit's vault-template CLAUDE.md, without changing anything else in mine."
     );
   }
 
