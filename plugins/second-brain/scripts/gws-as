@@ -1,0 +1,21 @@
+#!/bin/bash
+# gws-as <profile> <gws args...>
+#
+# One Google account per profile, each with its own login and token under
+# ~/.config/gws-<profile>/. Consumer Gmail has no domain-wide delegation, so
+# this is the honest version of "act as <account>": a separate consent per
+# account, switched by name.
+#
+# Tokens live in a file, not the macOS keychain, because a keychain refuses
+# to open for a remote shell and every install is done over SSH.
+#
+# Add a profile:   mkdir ~/.config/gws-<name> && cp ~/.config/gws/client_secret.json ~/.config/gws-<name>/
+# Sign it in:      gws-as <name> auth login -s gmail,calendar,drive
+p="$1"; shift
+if [ -z "$p" ] || [ ! -d "$HOME/.config/gws-$p" ]; then
+  echo "usage: gws-as <profile> <service> ...   profiles: $(ls -d "$HOME"/.config/gws-* 2>/dev/null | sed 's#.*/gws-##' | tr '\n' ' ')" >&2
+  exit 2
+fi
+export GOOGLE_WORKSPACE_CLI_CONFIG_DIR="$HOME/.config/gws-$p"
+export GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND=file
+exec gws "$@"
