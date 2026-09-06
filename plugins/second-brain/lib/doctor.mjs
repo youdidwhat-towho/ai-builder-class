@@ -98,6 +98,19 @@ function checkHooks() {
     );
 }
 
+function checkDisplay() {
+  let settings;
+  try {
+    settings = readSettings();
+  } catch {
+    return; // already reported by checkHooks
+  }
+  const cmd = settings.statusLine?.command || "";
+  if (!cmd) warn("Status bar", "not set, so nothing shows how full a session is", `Run:  ${REINSTALL}`);
+  else if (/statusline\.mjs|second-brain/.test(cmd)) ok("Status bar", "the kit's, with checkpoint reminders at 20% and 40%");
+  else ok("Status bar", "your own");
+}
+
 function checkSchedule(vault) {
   const beat = path.join(vault, ".heartbeat");
   const registered = scheduleExists("com.secondbrain.heartbeat");
@@ -307,6 +320,7 @@ function main() {
   const vault = checkVault();
   if (vault) {
     checkHooks();
+    checkDisplay();
     checkSchedule(vault);
     checkReflection(vault);
     checkBackup(vault);

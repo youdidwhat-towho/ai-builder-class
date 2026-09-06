@@ -151,6 +151,31 @@ async function main() {
     report("Daily jobs", "warn", err.message);
   }
 
+  // ---- Tools on PATH --------------------------------------------------
+  try {
+    const { ensureToolsOnPath } = await load("platform.mjs");
+    const r = ensureToolsOnPath();
+    report("Tools on PATH", r.ok ? "ok" : "warn", r.detail);
+  } catch (err) {
+    report("Tools on PATH", "warn", err.message);
+  }
+
+  // ---- Status bar + layout --------------------------------------------
+  try {
+    const s = await load("settings.mjs");
+    const before = s.readSettings();
+    const { settings: after, changed } = s.applyDisplay(before, path.join(PLUGIN, "hooks"));
+    if (changed.length) {
+      s.backup();
+      s.writeSettings(after);
+      report("Display", "ok", `${changed.join(" + ")} installed`);
+    } else {
+      report("Display", "ok", "status bar and layout already set");
+    }
+  } catch (err) {
+    report("Display", "warn", err.message);
+  }
+
   // ---- Desktop icon -------------------------------------------------
   try {
     const { createLauncher, hasWindowsTerminal } = await load("launcher.mjs");

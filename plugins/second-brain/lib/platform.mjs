@@ -123,6 +123,44 @@ function scheduleLaunchd({ label, scriptPath, hour, minute }) {
   return { ok: true, detail: `launchd job "${label}" at ${time} daily` };
 }
 
+/**
+ * Make sure `claude` and `node` are on PATH in every shell startup file.
+ *
+ * Mac only, and only when the tools live under the home folder (a user-local
+ * install, no Homebrew, no sudo). A client's login shell was bash while the
+ * install had only taught zsh, so `claude` was "command not found" the next
+ * morning in a terminal the install never opened. Five files, one line each,
+ * idempotent. Returns {ok, detail}.
+ */
+export function ensureToolsOnPath() {
+  if (IS_WIN) return { ok: true, detail: "not needed on Windows" };
+  const home = os.homedir();
+  const dirs = new Set();
+  const nodeDir = path.dirname(process.execPath);
+  if (nodeDir.startsWith(home)) dirs.add(nodeDir);
+  try {
+    const found = execFileSync("sh", ["-lc", "command -v claude"], { encoding: "utf8", stdio: "pipe" }).trim();
+    if (found) {
+      const real = fs.realpathSync(found);
+      for (const d of [path.dirname(found), path.dirname(real)]) if (d.startsWith(home)) dirs.add(d);
+    }
+  } catch {
+    // not found from here; nothing to add
+  }
+  if (!dirs.size) return { ok: true, detail: "tools are system-wide, nothing to add" };
+  const line = `export PATH="${[...dirs].map((d) => d.replace(home, "$HOME")).join(":")}:$PATH"`;
+  const files = [".zprofile", ".zshrc", ".bash_profile", ".bashrc", ".profile"];
+  const touched = [];
+  for (const f of files) {
+    const file = path.join(home, f);
+    const have = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : "";
+    if ([...dirs].every((d) => have.includes(d) || have.includes(d.replace(home, "$HOME")))) continue;
+    fs.appendFileSync(file, `\n# second brain: user-local tools\n${line}\n`, "utf8");
+    touched.push(f);
+  }
+  return { ok: true, detail: touched.length ? `added to ${touched.join(", ")}` : "already present in every shell" };
+}
+
 /** Is a scheduled job of ours registered? Used by /doctor. */
 export function scheduleExists(label) {
   try {

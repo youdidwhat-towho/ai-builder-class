@@ -75,6 +75,32 @@ export function writeSettings(settings, file = SETTINGS) {
   fs.renameSync(tmp, file);
 }
 
+/**
+ * The status bar and the fullscreen layout.
+ *
+ * Only touches what is ours or empty. A student who already set a status
+ * line keeps it; one who never did gets the kit's. `tui` is set only when
+ * unset, because someone who chose the other layout chose it.
+ * Returns the settings plus a list of what changed, for the setup report.
+ */
+export function applyDisplay(settings, hooksDir) {
+  const out = { ...settings };
+  const changed = [];
+  const cmd = `node ${JSON.stringify(path.join(hooksDir, "statusline.mjs"))}`;
+  const current = out.statusLine?.command || "";
+  if (!out.statusLine || /second-brain|statusline\.mjs/.test(current)) {
+    if (current !== cmd) {
+      out.statusLine = { type: "command", command: cmd };
+      changed.push("status bar");
+    }
+  }
+  if (!out.tui) {
+    out.tui = "fullscreen";
+    changed.push("fullscreen layout");
+  }
+  return { settings: out, changed };
+}
+
 /** The hook set this kit installs. Paths are filled in by the installer. */
 export function hookSpec(hooksDir) {
   const node = (script) => `node "${path.join(hooksDir, script)}"`;

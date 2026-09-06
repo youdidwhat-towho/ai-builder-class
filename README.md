@@ -19,6 +19,11 @@ Nothing here is a demo. It all runs.
 | `client-addons/` | Not shipped. The pattern for building somebody's industry layer at install, plus one worked example. |
 | `UPDATE.md` | How to pull new skills later. No GitHub account needed. |
 
+Setup also installs the parts nobody should have to do by hand: a status bar
+that says how full the session is and reminds you to checkpoint at 20% and
+40%, the fullscreen layout, the three nightly jobs, a desktop icon, and the
+voice guard. `connect-backup` walks the online copy through in five minutes.
+
 ---
 
 ## Start here, about ten minutes
@@ -139,6 +144,7 @@ you can read it.
 | `week-review` | "week review". Once a week. It tells you what it thinks it learned and you correct it. |
 | `coaching-callouts` | Nothing. Always on. It teaches while you work. |
 | `update-kit` | "update my class skills" |
+| `connect-backup` | "connect my backup". Once, at install. Five minutes and a free GitHub account. |
 
 Nothing in that list assumes an industry or a piece of software. Whatever you
 actually do for a living gets added on top, at install, built around the tools
