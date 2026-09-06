@@ -160,6 +160,76 @@ function checkNotes(vault) {
   else ok("Onboarding", "done");
 }
 
+/**
+ * Does the installed brain actually SAY anything?
+ *
+ * Every other check in this file asks whether something runs. Two clients
+ * ran a hollow second brain for weeks and passed every one of them, because
+ * a vault template with the instructions stripped out installs perfectly,
+ * starts perfectly, and answers perfectly uselessly. Presence is not
+ * substance, and only substance is what the user actually bought.
+ *
+ * So these check for content markers rather than files. Each one names a
+ * capability the user was promised somewhere, and looks for the words that
+ * deliver it.
+ */
+function checkSubstance(vault) {
+  const claude = path.join(vault, "CLAUDE.md");
+  if (!fs.existsSync(claude)) {
+    bad("Instructions", "CLAUDE.md is missing", REINSTALL);
+    return;
+  }
+  const text = fs.readFileSync(claude, "utf8");
+
+  // Each entry: what the user was promised, and the phrase that proves the
+  // instruction survived into their copy.
+  const promises = [
+    ["one capture door", /capture door|only capture/i],
+    ["says which file it changed", /which file|tell me what you did/i],
+    ["searches meaning, not filenames", /by meaning|search.*meaning/i],
+    ["empty vs blocked", /empty and blocked|could not look/i],
+    ["stamps what it touches", /last_touched/i],
+    ["active vs archived memory", /archive/i],
+    ["a maintenance habit", /maintain/i],
+    ["a weekly correction loop", /week-review|week review/i],
+  ];
+  const missing = promises.filter(([, re]) => !re.test(text)).map(([label]) => label);
+
+  if (!missing.length) {
+    ok("Instructions", `all ${promises.length} rules present`);
+  } else {
+    bad(
+      "Instructions",
+      `${missing.length} of ${promises.length} missing: ${missing.join(", ")}`,
+      "Your CLAUDE.md is missing rules it should have shipped with. " + REINSTALL
+    );
+  }
+
+  // A brain that cannot be pruned rots on a schedule, so the folder and the
+  // skills that use it are part of the promise, not extras.
+  const archive = path.join(vault, "archive");
+  if (fs.existsSync(archive)) ok("Archive", "passive memory available");
+  else
+    bad(
+      "Archive",
+      "no archive/ folder, so nothing can age out",
+      "Everything will stay in active memory forever and searches get worse every month. " +
+        REINSTALL
+    );
+
+  const templates = path.join(vault, "_templates");
+  const n = fs.existsSync(templates)
+    ? fs.readdirSync(templates).filter((f) => f.endsWith(".md")).length
+    : 0;
+  if (n) ok("Note templates", `${n} installed`);
+  else
+    bad(
+      "Note templates",
+      "none installed",
+      "New notes will have no shape and nothing will carry a last_touched stamp. " + REINSTALL
+    );
+}
+
 function main() {
   console.log("");
   console.log("  SECOND BRAIN CHECKUP");
@@ -172,6 +242,7 @@ function main() {
     checkSchedule(vault);
     checkSearch(vault);
     checkNotes(vault);
+    checkSubstance(vault);
   }
 
   console.log("");

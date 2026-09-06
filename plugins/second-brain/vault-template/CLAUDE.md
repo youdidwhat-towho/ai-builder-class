@@ -7,8 +7,10 @@ just a starting point.
 
 - **One capture door.** Everything goes to `daily/YYYY-MM-DD.md` with a
   timestamp. Never ask which folder something belongs in.
-- **Facts go in the vault. Rules go in this file.** "My max offer is 70% of
-  ARV" is a rule. "123 Main St is under contract" is a fact.
+- **Facts go in the vault. Rules go in this file.** "Never send anything on
+  my behalf without showing me first" is a rule. "The Henderson job starts
+  the 14th" is a fact. Rules describe how I want to be worked with and are
+  true next year. Facts describe the world and stop being true.
 - **Tell me what you did.** After you change something, say which file in one
   line.
 - **Search by meaning before you guess.** When I ask what I said about
@@ -32,14 +34,16 @@ just a starting point.
 | Folder | What goes in it |
 |---|---|
 | `daily/` | Everything, as it happens. The only capture door. |
-| `deals/` | One file per deal |
-| `contacts/` | People |
-| `properties/` | One file per property |
+| `projects/` | One file per thing I am trying to finish |
+| `people/` | One file per real working relationship |
 | `decisions/` | Calls made, and why |
-| `reference/` | Anything worth keeping |
+| `operations/` | Processes I run more than once |
+| `reference/` | Anything worth keeping, no action attached |
 | `connections/` | Written by me overnight, not by you |
-| `operations/` | Processes you run more than once |
 | `archive/` | Passive memory. Finished, not deleted. |
+
+These are the general ones. Add folders for whatever I actually do, and tell
+me when you add one.
 
 ## Keeping it worth using
 

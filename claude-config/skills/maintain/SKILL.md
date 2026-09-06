@@ -26,9 +26,9 @@ pruned at all.
 
 ### 1. Survey
 
-Look at `deals/`, `contacts/`, `properties/`, `decisions/`, `operations/`,
-and `reference/`. For each note, work out how long since it was last
-genuinely touched.
+Look at `projects/`, `people/`, `decisions/`, `operations/`, and
+`reference/`, plus any folders this person added for their own work. For
+each note, work out how long since it was last genuinely touched.
 
 Prefer a `last_touched:` line in the frontmatter. Fall back to the file's
 modification date only when there is nothing else, and **say which one you
@@ -45,12 +45,12 @@ reflection pass rather than by the user.
 
 | Pile | What it means | What to propose |
 |---|---|---|
-| **Done** | The thing it describes has concluded. Deal closed, decision made and acted on, trip taken, project shipped. | Archive it. |
+| **Done** | The thing it describes has concluded. Project shipped, decision made and acted on, trip taken, job finished. | Archive it. |
 | **Cold** | Nothing has concluded, it just stopped moving. | Ask: still live, or dead? |
 | **Current** | Touched recently, or it is a standing reference that does not age. | Leave it alone. |
 
 Elapsed time is the strongest signal for the Done pile and it is often
-readable straight off the note. A note that says the closing is March 14th,
+readable straight off the note. A note saying the handover is March 14th,
 read in September, is describing something finished. Say so.
 
 ### 3. Propose, in one screen
@@ -59,12 +59,12 @@ Group by pile. Name the note, its age, and the one-line reason. Something like:
 
 ```
 Done, ready to archive (4)
-  1247-oak-st          142d   closing was 3/14, note says funded
+  henderson-job        142d   note says delivered and invoiced 3/14
   q1-marketing-push     97d   quarter ended
 
 Cold, need a call from you (2)
   marcus-webb           64d   last contact was an unanswered text
-  hayes-duplex          51d   offer submitted, no recorded outcome
+  vendor-consolidation  51d   started, no entry since
 
 Current (31) — leaving alone
 ```
@@ -74,7 +74,8 @@ Then one question: which of these should move?
 ### 4. Move only what they approve
 
 Archive by moving the file into `archive/<folder>/`, preserving the folder
-name. `deals/1247-oak-st.md` becomes `archive/deals/1247-oak-st.md`.
+name. `projects/henderson-job.md` becomes
+`archive/projects/henderson-job.md`.
 
 Add one line at the bottom of each archived note before moving it:
 
@@ -92,7 +93,7 @@ them what moved in one sentence.
    gone they can delete it themselves, and they will not ask often.
 2. **Never move without a yes.** Not even the obvious ones.
 3. **Cold is a question, not a verdict.** "This hasn't moved in 60 days" is
-   an observation. Whether the deal is dead is theirs to say.
+   an observation. Whether it is actually dead is theirs to say.
 4. **Do not prune `daily/`.** Ever. It is the capture record.
 5. **Say which signal you used.** If most notes had no `last_touched:` and
    you fell back to modification dates, lead with that. The report is only

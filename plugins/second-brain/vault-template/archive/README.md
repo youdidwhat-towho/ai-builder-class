@@ -20,8 +20,8 @@ four things that were true in March and one that is true now.
 
 ## What lands here
 
-Notes whose subject has concluded. A closed deal. A decision that was made
-and acted on. A project that shipped. A buyer who moved away.
+Notes whose subject has concluded. A project that shipped. A decision that
+was made and acted on. Somebody you no longer work with.
 
 Nothing gets deleted and nothing arrives here by itself. Say `maintain`
 every couple of weeks and you will get a list of candidates with a reason
@@ -29,9 +29,9 @@ next to each one. You pick.
 
 ## Shape
 
-The folder it came from is preserved, so `deals/1247-oak-st.md` archives to
-`archive/deals/1247-oak-st.md`. Each archived note carries one line at the
-bottom saying when it moved and why.
+The folder it came from is preserved, so `projects/henderson-job.md`
+archives to `archive/projects/henderson-job.md`. Each archived note carries
+one line at the bottom saying when it moved and why.
 
 ## What never comes here
 

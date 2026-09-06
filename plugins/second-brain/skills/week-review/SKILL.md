@@ -35,11 +35,12 @@ would be wrong if you had it wrong:
 ```
 Here's what I think changed this week:
 
-- 1247 Oak is dead. Inspection killed it, you walked on Tuesday.
-- Marcus Webb moved from a lead to your main cash buyer for anything
-  under 200k in the east valley.
-- You decided to stop taking listings outside the county.
-- Your max offer rule changed from 70% to 68% of ARV.
+- The Henderson job is dead. The inspection killed it and you walked
+  on Tuesday.
+- Marcus Webb went from a name to the person you route anything urgent
+  through.
+- You decided to stop taking work outside the county.
+- Your rule on deposits changed from half up front to a third.
 
 Is that right?
 ```

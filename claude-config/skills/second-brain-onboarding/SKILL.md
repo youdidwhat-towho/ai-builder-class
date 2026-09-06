@@ -50,7 +50,7 @@ agents, referrals, a JV partner, a list source. What a typical month looks like 
 volume, not dollars, unless they offer dollars.
 
 ### 4. The tools they already run
-CRM, list tool, dialer, comps tool, spreadsheets, whatever it is. **Ask what they
+The actual product names. Spreadsheets count. **Ask what they
 actually open every day, not what they pay for.** Those are different lists and the
 difference matters.
 
