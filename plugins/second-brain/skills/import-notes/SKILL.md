@@ -25,6 +25,20 @@ holds the notes:
 One export per Google account. If they use Keep or Gemini in more than one
 account, they do it once per account.
 
+If they chose **Add to Drive** on the Takeout page (the better choice: the
+link in the email dies in seven days, the Drive copy does not), the zip is in
+a folder called Takeout in that account's Drive. Pull it down yourself, no
+clicks on their side:
+
+```
+gws-as <profile> drive files list --params '{"q":"name contains \"takeout\" and mimeType=\"application/zip\"","orderBy":"createdTime desc","fields":"files(id,name,size,createdTime)"}'
+gws-as <profile> drive files get --params '{"fileId":"<id>","alt":"media"}' --output ~/Downloads/<name>
+```
+
+A big export arrives as several zips named -001, -002 and so on. Pull them
+all and run the importer on each; it never overwrites, so order does not
+matter.
+
 When the zip is on the machine:
 
 ```
