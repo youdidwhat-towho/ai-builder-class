@@ -1,0 +1,12 @@
+{
+  "_why": "Inside the vault, reading and editing notes is the whole job. Asking for approval on every note edit teaches a beginner to click yes without reading, which is worse than not asking. These rules cover files in this folder only. Anything outside it, and every command, still asks.",
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
+      "Edit(**)",
+      "Write(**)"
+    ]
+  }
+}
