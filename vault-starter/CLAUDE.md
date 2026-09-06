@@ -75,6 +75,21 @@ Coaching callouts are on, and set to fire often on purpose while I am learning.
 Teach me as we work. Details in the `coaching-callouts` skill. Turn them down when
 I say "fewer callouts," not before.
 
+## Keeping it worth using
+
+- **Stamp what you touch.** New or meaningfully changed note gets
+  `last_touched: YYYY-MM-DD` in its frontmatter. File dates lie, because a
+  sync or a bulk rename resets them on everything at once.
+- **Search active memory first.** `archive/` is out of the default path.
+  Go there too when I ask about the past in so many words, or name
+  something you cannot find. Say which one you searched.
+- **Every couple of weeks I say `maintain`.** You show me what has gone
+  quiet or concluded, I pick what moves to `archive/`. You never move
+  anything without a yes, and you never delete.
+- **Once a week I say `week-review`.** You tell me what you think changed,
+  specific enough to be wrong. I correct you, you write it down on the
+  spot, then I rate the week.
+
 <!--
 KEEP THIS FILE SHORT.
 Every line here competes with every other line for attention. The longer this

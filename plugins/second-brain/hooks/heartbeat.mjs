@@ -25,6 +25,7 @@ import {
   appendDaily,
   listNotes,
 } from "../lib/vault.mjs";
+import { survey, signalQuality, passDue, daysSinceLastPass } from "../lib/maintenance.mjs";
 
 function main() {
   const vault = vaultPath();
@@ -87,14 +88,30 @@ function pickNudge(vault) {
     return "there are no deals in the vault yet. Say `deal intake` and paste anything messy you have.";
   }
 
+  // The maintenance pass. This outranks any single stale note, because a
+  // vault that has never been pruned will have dozens of them and naming
+  // one at a time is a worse answer than naming the habit.
+  const notes = survey(vault, 30);
+  const overdue = notes.filter((n) => n.stale);
+  if (passDue(vault, 14, ageInDays(vault)) && overdue.length >= 3) {
+    const since = daysSinceLastPass(vault);
+    const when = since === Infinity ? "never been run" : `last run ${Math.round(since)} days ago`;
+    return `${overdue.length} notes have gone quiet and maintenance has ${when}. Say \`maintain\` and I will show you the list.`;
+  }
+
+  // A vault where almost nothing carries last_touched is a vault whose age
+  // numbers are really filesystem numbers. Say that once, plainly, rather
+  // than reporting confident staleness built on a signal that lies.
+  const q = signalQuality(notes);
+  if (q.total >= 20 && !q.trustworthy) {
+    return `only ${q.declared} of ${q.total} notes record when they were last worked, so I am guessing at what is current from file dates. Ask me to stamp them and the next check gets honest.`;
+  }
+
   // Stale work is the thing a human brain drops and this one should not.
-  const stale = listNotes(vault, "deals")
-    .map((f) => ({ f, age: (Date.now() - fs.statSync(f).mtimeMs) / 86_400_000 }))
-    .filter((d) => d.age > 14)
-    .sort((a, b) => b.age - a.age);
-  if (stale.length) {
-    const name = path.basename(stale[0].f, ".md");
-    return `${name} hasn't been touched in ${Math.round(stale[0].age)} days. Still live, or dead?`;
+  if (overdue.length) {
+    const worst = overdue[0];
+    const hedge = worst.basis === "mtime" ? " (going by the file date)" : "";
+    return `${worst.name} hasn't been touched in ${worst.days} days${hedge}. Still live, or dead?`;
   }
 
   return `${deals} deal${deals === 1 ? "" : "s"} in the vault and everything touched recently. Nothing is rotting.`;

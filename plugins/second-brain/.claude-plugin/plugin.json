@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "second-brain",
-  "version": "2.0.3",
-  "description": "A working second brain for Claude Code: session context, change logging, semantic search, nightly reflection, and a daily check-in.",
+  "version": "2.1.0",
+  "description": "A working second brain for Claude Code: session context, change logging, semantic search, nightly reflection, a daily check-in, and the maintenance layer that keeps it true in month six.",
   "author": {
     "name": "Christopher Bole"
   },

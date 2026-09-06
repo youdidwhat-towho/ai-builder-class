@@ -96,6 +96,8 @@ That decision is where capture dies. Filing happens later and Claude does it.
 | `checkpoint` | "checkpoint", "save where we are", "I have to go" |
 | `tldr` | "tldr", "save this session", "write this up" |
 | `end-of-day` | "wrap up", "close out the day" |
+| `maintain` | "maintain", "prune", "what's gone stale". Every couple of weeks. |
+| `week-review` | "week review". Once a week. It tells you what it thinks it learned and you correct it. |
 | `coaching-callouts` | Nothing. Always on. It teaches while you work. |
 | `update-kit` | "update my class skills" |
 | `comps-propwire` | "run comps on 1247 Oak" (free, all 50 states) |
