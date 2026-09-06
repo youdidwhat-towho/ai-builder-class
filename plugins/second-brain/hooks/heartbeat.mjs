@@ -27,6 +27,7 @@ import {
   backupState,
 } from "../lib/vault.mjs";
 import { survey, signalQuality, passDue, daysSinceLastPass } from "../lib/maintenance.mjs";
+import { scheduleExists } from "../lib/platform.mjs";
 
 function main() {
   const vault = vaultPath();
@@ -72,12 +73,12 @@ function pickNudge(vault) {
   if (backup) return backup;
 
   // Did yesterday get closed out? This is the habit the whole loop rests on.
+  // `wrap up` writes a Tomorrow section into the day's note; `tldr` writes
+  // its own dated note beside it with a Handoff. Either one counts, because
+  // either one gives tomorrow something to pick up.
   const y = dailyFile(vault, daysAgo(1));
-  if (fs.existsSync(y)) {
-    const text = fs.readFileSync(y, "utf8");
-    if (!/##+\s*Tomorrow/i.test(text)) {
-      return "yesterday's note never got a wrap up, so there was nothing for this morning to pick up. Try `wrap up` tonight.";
-    }
+  if (fs.existsSync(y) && !wrappedUp(vault, daysAgo(1))) {
+    return "yesterday's note never got a wrap up, so there was nothing for this morning to pick up. Try `wrap up` tonight.";
   }
 
   // Silence is the failure mode for capture. Name it plainly.
@@ -135,8 +136,10 @@ function backupNudge(vault) {
   const s = backupState(vault);
   const days = (iso) => (Date.now() - new Date(iso).getTime()) / 86_400_000;
   if (!s) {
-    // Never ran. Give the scheduler a couple of nights before calling it.
-    if (ageInDays(vault) >= 3) {
+    // Never ran. Only worth saying if the job is actually registered; a vault
+    // that backs itself up some other way (or not at all, by choice) should
+    // not hear about a job it never had. /doctor still reports the gap.
+    if (scheduleExists("com.secondbrain.backup") && ageInDays(vault) >= 3) {
       return "the nightly backup has never run. Say `/doctor` and it will say why.";
     }
     return null;
@@ -151,6 +154,24 @@ function backupNudge(vault) {
     return "your notes are saved every night, but only on this laptop. Nothing is online yet. A lost or dead machine is a lost vault. Ask Christopher to connect the backup.";
   }
   return null;
+}
+
+/** Was this day closed out by `wrap up` or by a `tldr` note sitting beside it? */
+function wrappedUp(vault, date) {
+  const dir = path.join(vault, "daily");
+  let files;
+  try {
+    files = fs.readdirSync(dir).filter((f) => f.startsWith(date) && f.endsWith(".md"));
+  } catch {
+    return false;
+  }
+  return files.some((f) => {
+    try {
+      return /^##+\s*(Tomorrow|Handoff)\b/im.test(fs.readFileSync(path.join(dir, f), "utf8"));
+    } catch {
+      return false;
+    }
+  });
 }
 
 /** How long this vault has existed, from the install stamp. */
