@@ -1,5 +1,5 @@
 {
-  "description": "Second brain wiring. These are the difference between a folder of notes and a system that runs.",
+  "description": "Second brain wiring. These are the difference between a folder of notes and a system that runs. The guard is the difference between a careful assistant and a safe one.",
   "hooks": {
     "SessionStart": [
       {
@@ -23,6 +23,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "Bash|Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/guard.mjs\"",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop": [
@@ -31,6 +41,18 @@
           {
             "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/voice-guard.mjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|MultiEdit|NotebookEdit|Read|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/guard.mjs\"",
             "timeout": 10
           }
         ]

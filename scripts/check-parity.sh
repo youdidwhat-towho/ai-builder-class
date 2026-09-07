@@ -125,6 +125,20 @@ else
   fail=1
 fi
 
+# 7. Damage control ships, is wired for both events, and /doctor proves it
+#    works rather than just finding the file.
+g_fail=""
+[ -f "$PLUGIN/hooks/guard.mjs" ] || g_fail="$g_fail guard.mjs(missing)"
+[ -f "$PLUGIN/hooks/guard-patterns.json" ] || g_fail="$g_fail guard-patterns.json(missing)"
+grep -q '"PreToolUse"' "$PLUGIN/hooks/hooks.json" && grep -q 'guard.mjs' "$PLUGIN/hooks/hooks.json" || g_fail="$g_fail hooks.json(not-wired)"
+grep -q 'checkGuard()' "$PLUGIN/lib/doctor.mjs" || g_fail="$g_fail doctor(blind)"
+if [ -z "$g_fail" ]; then
+  say "  [  OK  ] Damage control: guard shipped, wired, and checked by /doctor"
+else
+  say "  [ FAIL ] Damage control gap:$g_fail"
+  fail=1
+fi
+
 say ""
 if [ "$fail" -eq 0 ]; then
   say "  Both halves ship the same kit."

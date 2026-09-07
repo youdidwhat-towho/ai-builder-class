@@ -21,8 +21,11 @@ Nothing here is a demo. It all runs.
 
 Setup also installs the parts nobody should have to do by hand: a status bar
 that says how full the session is and reminds you to checkpoint at 20% and
-40%, the fullscreen layout, the three nightly jobs, a desktop icon, and the
-voice guard. `connect-backup` walks the online copy through in five minutes.
+40%, the fullscreen layout, the three nightly jobs, a desktop icon, the
+voice guard, and damage control: a guard that stops a recursive delete, a
+force push, a read of a secrets file or a rewrite of your shell startup
+files before it happens, and asks you first on the borderline ones. Your
+own patterns go in `~/.claude/second-brain-guard.json`. `connect-backup` walks the online copy through in five minutes.
 
 ---
 

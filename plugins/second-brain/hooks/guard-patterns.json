@@ -1,0 +1,68 @@
+{
+  "_about": "Damage-control patterns for guard.mjs. Three tiers: a bash pattern with ask=true prompts, one without blocks. Paths in zeroAccess can never be read, edited, written or named in a command. readOnly paths can be read but not changed. noDelete paths can be changed but not removed. Add your own in ~/.claude/second-brain-guard.json using the same keys; they are merged on top.",
+
+  "bashToolPatterns": [
+    { "pattern": "\\brm\\s+(-[^\\s]*)*-[rRf]", "reason": "rm with recursive or force flags can delete whole folders", "ask": true },
+    { "pattern": "\\brm\\s+-rf\\s+/", "reason": "rm -rf on a root path" },
+    { "pattern": "\\bfind\\b.*-delete\\b", "reason": "find -delete removes many files silently" },
+    { "pattern": "\\bfind\\b.*-exec\\s+rm\\b", "reason": "find with rm is bulk deletion" },
+    { "pattern": "\\bshred\\b", "reason": "shred destroys file contents permanently" },
+    { "pattern": "\\brmdir\\s+(-[^\\s]*)*-p", "reason": "rmdir -p removes parent folders too" },
+    { "pattern": "\\btruncate\\b.*--size\\s*0", "reason": "truncate to 0 empties a file" },
+    { "pattern": "\\bdd\\b.*of=/", "reason": "dd can overwrite system files" },
+    { "pattern": ">\\s*/dev/sd[a-z]", "reason": "writing straight to a disk device" },
+    { "pattern": "\\bmkfs\\b", "reason": "mkfs erases a whole drive" },
+    { "pattern": "\\bdiskutil\\s+(erase|reformat|partition)", "reason": "diskutil erase or partition wipes a drive" },
+    { "pattern": "\\bformat\\s+[a-z]:", "reason": "Windows format wipes a drive" },
+    { "pattern": "\\b(rd|rmdir)\\s+/s\\b", "reason": "Windows recursive folder delete" },
+    { "pattern": "\\bRemove-Item\\b.*-Recurse\\b", "reason": "PowerShell recursive delete", "ask": true },
+
+    { "pattern": "\\bgit\\s+push\\b.*--force\\b", "reason": "force push can overwrite remote history" },
+    { "pattern": "\\bgit\\s+push\\b.*\\s-f\\b", "reason": "force push shorthand, same danger" },
+    { "pattern": "\\bgit\\s+reset\\b.*--hard\\b", "reason": "hard reset discards every uncommitted change" },
+    { "pattern": "\\bgit\\s+clean\\b.*-[a-zA-Z]*f", "reason": "git clean removes untracked files" },
+    { "pattern": "\\bgit\\s+checkout\\s+\\.", "reason": "discards all unstaged changes", "ask": true },
+    { "pattern": "\\bgit\\s+branch\\b.*\\s-D\\b", "reason": "force-deletes a branch even if unmerged", "ask": true },
+    { "pattern": "\\bgit\\s+stash\\s+drop\\b", "reason": "permanently deletes stashed changes", "ask": true },
+    { "pattern": "\\bgit\\s+reflog\\s+expire\\b.*--all", "reason": "can make commits unrecoverable" },
+
+    { "pattern": "\\bDROP\\s+(DATABASE|TABLE|SCHEMA)\\b", "reason": "DROP permanently deletes database objects" },
+    { "pattern": "\\bTRUNCATE\\s+TABLE\\b", "reason": "TRUNCATE removes every row instantly" },
+    { "pattern": "\\bDELETE\\s+FROM\\s+\\w+\\s*;", "reason": "DELETE without WHERE removes every row" },
+    { "pattern": "\\bDELETE\\s+FROM\\s+\\w+\\s+WHERE\\s+1\\s*=\\s*1", "reason": "DELETE WHERE 1=1 removes every row" },
+    { "pattern": "\\bFLUSHALL\\b", "reason": "Redis FLUSHALL deletes all data" },
+    { "pattern": "\\bFLUSHDB\\b", "reason": "Redis FLUSHDB deletes the current database" },
+    { "pattern": "db\\.dropDatabase\\s*\\(", "reason": "MongoDB dropDatabase removes the whole database" },
+
+    { "pattern": "\\baws\\s+s3\\s+rm\\b.*--recursive\\b", "reason": "recursively deletes S3 objects" },
+    { "pattern": "\\bterraform\\s+destroy\\b", "reason": "terraform destroy removes all infrastructure", "ask": true },
+    { "pattern": "\\bkubectl\\s+delete\\s+namespace\\b", "reason": "deletes a whole Kubernetes namespace" },
+    { "pattern": "\\bdocker\\s+system\\s+prune\\b.*-a", "reason": "removes all unused Docker resources", "ask": true },
+    { "pattern": "\\bheroku\\s+apps:destroy\\b", "reason": "destroys a Heroku application" }
+  ],
+
+  "zeroAccessPaths": [
+    ".env", ".env.*", "*.env",
+    "~/.ssh/", "~/.aws/", "~/.gnupg/", "~/.secrets/",
+    "~/.config/gh/", "~/.config/gws/", "~/.config/gws-*/",
+    "*.pem", "*.key.pem", "*private.key", "*server.key", "*client.key",
+    "id_rsa", "id_ed25519",
+    "*-adminsdk*.json", "firebase-adminsdk*.json", "service-account*.json",
+    "client_secret*.json", "credentials.json", "token_cache.json",
+    "secrets.yaml", "secrets.json",
+    ".npmrc", ".pypirc"
+  ],
+
+  "readOnlyPaths": [
+    "/etc/",
+    "~/.bashrc", "~/.zshrc", "~/.bash_profile", "~/.zprofile", "~/.profile",
+    "package-lock.json", "yarn.lock", "pnpm-lock.yaml",
+    "Gemfile.lock", "poetry.lock", "Cargo.lock", "composer.lock", "*.lock"
+  ],
+
+  "noDeletePaths": [
+    ".claude/", ".git/", ".obsidian/",
+    "README.md", "LICENSE", "CHANGELOG.md", ".gitignore",
+    "CLAUDE.md", "MEMORY.md", "daily/"
+  ]
+}

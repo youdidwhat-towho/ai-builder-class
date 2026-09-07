@@ -13,6 +13,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { vaultPath, today, dailyFile, CONFIG, backupState } from "../lib/vault.mjs";
 import { readSettings, SETTINGS, TAG } from "../lib/settings.mjs";
 import { scheduleExists, IS_WIN } from "../lib/platform.mjs";
@@ -96,6 +98,29 @@ function checkHooks() {
       "not installed, so file changes are not being recorded",
       `Run:  ${REINSTALL}`
     );
+}
+
+function checkGuard() {
+  // Presence is not protection. Run the guard the way Claude Code runs it and
+  // make it refuse something it must refuse. A guard that exists but lets
+  // "cat .env" through is worse than none, because everyone assumes it works.
+  const guard = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "hooks", "guard.mjs");
+  if (!fs.existsSync(guard)) {
+    bad("Damage control", "guard.mjs is missing from the plugin", `Run:  ${REINSTALL}`);
+    return;
+  }
+  const probe = JSON.stringify({ hook_event_name: "PreToolUse", tool_name: "Bash", tool_input: { command: "cat .env" } });
+  const r = spawnSync(process.execPath, [guard], { input: probe, encoding: "utf8" });
+  if (r.status === 2 && /BLOCKED/.test(r.stderr || "")) {
+    const own = path.join(os.homedir(), ".claude", "second-brain-guard.json");
+    ok("Damage control", fs.existsSync(own) ? "on, with your own patterns merged in" : "on: blocks deletes, secrets and shell files before they happen");
+  } else {
+    bad(
+      "Damage control",
+      `the guard did not block a protected read (exit ${r.status})`,
+      `Run:  ${REINSTALL}   and if it still fails, send this screen to Christopher.`
+    );
+  }
 }
 
 function checkDisplay() {
@@ -320,6 +345,7 @@ function main() {
   const vault = checkVault();
   if (vault) {
     checkHooks();
+    checkGuard();
     checkDisplay();
     checkSchedule(vault);
     checkReflection(vault);
