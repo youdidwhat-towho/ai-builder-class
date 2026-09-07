@@ -80,10 +80,17 @@ function checkHooks() {
   }
 
   const hooks = settings.hooks || {};
-  const ours = (event) => (hooks[event] || []).filter((g) => g._kit === TAG);
+  // Two install routes wire hooks differently. The plugin route (recommended)
+  // carries them in the plugin's own hooks.json and settings only enables the
+  // plugin. The clone route writes tagged entries into settings.json. Either
+  // one counts. Found 2026-09-07 when a correct plugin install reported its
+  // greeting as missing.
+  const viaPlugin = !!(settings.enabledPlugins || {})["second-brain@ai-builder-class"];
+  const ours = (event) =>
+    viaPlugin ? [true] : (hooks[event] || []).filter((g) => g._kit === TAG);
 
   if (ours("SessionStart").length)
-    ok("Greeting on open", "SessionStart hook installed");
+    ok("Greeting on open", viaPlugin ? "wired by the plugin" : "SessionStart hook installed");
   else
     bad(
       "Greeting on open",
@@ -91,7 +98,7 @@ function checkHooks() {
       `Run:  ${REINSTALL}`
     );
 
-  if (ours("PostToolUse").length) ok("Change log", "PostToolUse hook installed");
+  if (ours("PostToolUse").length) ok("Change log", viaPlugin ? "wired by the plugin" : "PostToolUse hook installed");
   else
     warn(
       "Change log",
