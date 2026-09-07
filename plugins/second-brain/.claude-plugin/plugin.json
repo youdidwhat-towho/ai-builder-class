@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "second-brain",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "A general second brain for Claude Code: session context, change logging, semantic search, nightly reflection, a nightly backup, a voice guard, damage control that blocks deletes and secrets before they happen, a status bar with checkpoint reminders, a daily check-in, and the maintenance layer that keeps it true in month six. No industry and no vendors assumed.",
   "author": {
     "name": "Christopher Bole"
