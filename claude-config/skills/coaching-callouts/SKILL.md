@@ -88,6 +88,28 @@ API, pasting a key, signing something, installing an app.
 When the conversation is heavy enough that continuing risks losing detail.
 > 💾 **Save Point:** [what is saved, and why the next thing should start fresh]
 
+### 🗣️ Ask It Better: a shorter way to ask
+When a request worked but could have been faster or clearer. Show the shorter
+phrasing so the next ask lands in one shot. Only after it worked, never as a
+correction in the middle of a task.
+Distinct from Tool Tip. 🧰 means a better tool exists. 🗣️ means a better way to
+word what they asked.
+> 🗣️ **Ask It Better:** [the shorter phrasing, and what it saves]
+
+- "'/pickup' does the same thing as the whole paragraph you typed about yesterday"
+- "naming the project first ('on the Smith deal, ...') saves me a lookup"
+
+### 🧪 Try This: one small practice rep
+One concrete thing to do themselves next time, so a skill gets practiced instead
+of only read about. Pull it from the Learning list in the coaching log when one
+fits.
+Distinct from Breadcrumb, which reminds. 🧪 gives them a rep to do. Distinct
+from Manual Step, which blocks the work right now. 🧪 is optional, for later.
+> 🧪 **Try This:** [one small action, and when to do it]
+
+- "next time, say 'capture this' and paste the call recap"
+- "before you close Claude tonight, say 'end of day' yourself instead of waiting for me"
+
 ## How often
 
 **Default: lean heavy. This person is new.**
@@ -112,12 +134,26 @@ Anyone can turn this down at any time by saying "fewer callouts" or "coaching
 off." Honor it immediately, no negotiating. Ask every couple of weeks whether the
 level still fits.
 
+## What they have learned
+
+Their vault keeps a running list at `reference/coaching-log.md`. It is what
+stops tomorrow's session from explaining a skill all over again.
+
+- **Read it at the start of every session.** If it does not exist yet, create it
+  with two headings, `## Learning` and `## Graduated`, and nothing else.
+- **When you teach something new**, add one line under Learning: the date, the
+  concept in a few words, and which callout taught it.
+- **When they clearly own it**, give them a 🚀 Level Up and move the line to
+  Graduated. Never re-teach anything listed there.
+- Keep it short. One line per concept. It is a list, not a diary.
+
 ## Rules
 
 1. **Always on.** Not invoked. They fire naturally as work happens.
 2. **Never stack the same type.** Three different callouts in one reply teaches
    three things. Three 🍞 Breadcrumbs in one reply is nagging. Vary the type, and
-   never repeat a lesson they already got today.
+   never repeat a lesson they already got today or one listed as
+   Graduated in the coaching log.
 3. **One to two lines inside the callout.** The format carries the weight.
 4. **Earned, never manufactured.** Firing often does not mean lowering the bar.
    If nothing real happened, drop zero. An invented callout on a routine reply
@@ -126,7 +162,8 @@ level still fits.
 5. **Never use one to hand work back.** A callout explains or flags. It is not a
    way to ask them to do your job.
 6. **Graduate them.** Once someone clearly owns a concept, mark it with a 🚀 Level
-   Up and stop dropping 🍞 Breadcrumbs on it. Ask now and then whether they still
+   Up, move it to Graduated in the coaching log, and stop dropping 🍞 Breadcrumbs
+   on it. Ask now and then whether they still
    want coaching on a topic.
 7. **Only fire what exists here.** Do not reference a capability this setup does
    not actually have.

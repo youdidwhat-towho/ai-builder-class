@@ -104,6 +104,22 @@ function main() {
     say();
   }
 
+  // Coaching. Said here, every session, because a skill that is only
+  // mentioned in CLAUDE.md gets skipped. This line reaches people whose
+  // vault predates the coaching log, since updates never touch the vault.
+  const coachLog = read(vault, "reference/coaching-log.md");
+  const section = (h) => {
+    const m = coachLog.match(new RegExp(`##\\s*${h}\\s*\\n([\\s\\S]*?)(\\n##|$)`, "i"));
+    return m ? m[1].split("\n").filter((l) => /^\s*[-*]\s+\S/.test(l)).length : 0;
+  };
+  say(
+    "COACHING: on. Load the coaching-callouts skill now and read reference/coaching-log.md" +
+      (coachLog
+        ? ` (${section("Learning")} learning, ${section("Graduated")} graduated).`
+        : " (not started yet, create it the first time you teach something).")
+  );
+  say();
+
   // Heartbeat health, in front of them rather than buried in a log.
   // A silent heartbeat is worse than none, so a stale one says so here.
   say(heartbeatLine(vault));

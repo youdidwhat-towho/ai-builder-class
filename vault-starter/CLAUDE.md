@@ -72,8 +72,9 @@ Short is respectful. If two sentences do it, do not write six.
 ## Coaching
 
 Coaching callouts are on, and set to fire often on purpose while I am learning.
-Teach me as we work. Details in the `coaching-callouts` skill. Turn them down when
-I say "fewer callouts," not before.
+At the start of every session, load the `coaching-callouts` skill and read
+`reference/coaching-log.md`, so you build on what I already know instead of
+explaining it again. Turn them down when I say "fewer callouts," not before.
 
 ## Keeping it worth using
 
