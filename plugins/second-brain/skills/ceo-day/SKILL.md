@@ -14,32 +14,58 @@ One session is the CEO. It stays thin: it plans, hands out work, collects questi
 3. **The board** = one note, `daily/YYYY-MM-DD-board.md`. One line per lane. This is the only place you look.
 4. **The CEO closes last.** Lanes finish and stop; the CEO writes the day note after the last lane is done or parked.
 
+## Step 0: make this session the CEO (do this first, every time)
+
+Run these before anything else. They are not optional and not "if cmux is available later". The CEO has to be easy to find all day.
+
+If `cmux` is not found, use the full path: `/Applications/cmux.app/Contents/Resources/bin/cmux`.
+
+```
+cmux workspace-action --action rename --title "👔 CEO · <Model> <effort>"
+cmux workspace-action --action set-color --color Green
+cmux workspace-action --action set-description --description "CEO session for <date>. Lanes report on daily/<date>-board.md"
+cmux workspace-action --action pin
+cmux workspace-action --action move-top
+cmux set-status mode "CEO"
+```
+
+Then check it worked: `cmux list-workspaces` should show the CEO workspace first with its name. If a command fails, say which one and fix it before continuing. Do not skip ahead.
+
+Then create the board note `daily/<date>-board.md` and put one line at the top: `CEO session started <time>`.
+
 ## Morning: set up the day (CEO)
 
 1. Read yesterday's daily note and `MEMORY.md` for what is open.
 2. Ask the user for the day's list in one message. Do not ask follow-ups until the first list is in.
 3. Sort it into lanes. One job per lane. Anything that sends to an outside person, moves money, or deletes something is marked **needs you**.
-4. Write the board note: for each lane, a name (2 to 3 words), the job in one line, the first step, and `Status:`.
+4. Write each lane onto the board note: a name (2 to 3 words), the job in one line, the first step, and `Status:`.
 5. Show the user the board and the lane list. Start the lanes only after a yes.
 
 ## Starting a lane
 
-Each lane gets its own session, and its first act is to put its line on the board:
+Each lane is its own cmux workspace running its own Claude. The CEO opens them:
 
-- Name the lane with a short slug (`rental-insurance`, `grant-page`).
-- Add a line to the board: `- [ ] **<slug>** job in one line` with sub-lines `Claimed: <date and time>`, `Parent: CEO`, `Status:`.
-- If cmux is available, open it as a cmux workspace named for the slug. Otherwise open a new Terminal window and run `claude` in the vault folder.
-- Edit the board by the lane's own tag, never by line number, because other lanes edit the same file.
+```
+cmux new-workspace --name "🔹 <slug> · <Model> <effort>" --cwd ~/second-brain --focus false --command "claude --model <model>"
+cmux workspace-action --action set-color --color Blue --workspace <the new workspace>
+cmux set-status mode "YOU" --workspace <the new workspace>
+```
+
+Give each lane its job as the first message, with: the one-line job, the board note path, and "put your line on the board first, then work."
+
+The lane's first act is its board line: `- [ ] **<slug>** job in one line` with sub-lines `Claimed: <date and time>`, `Parent: CEO`, `Status:`. Lanes edit the board by their own slug, never by line number, because other lanes edit the same file.
+
+If cmux is truly not installed, open a new Terminal window per lane and run `claude` in the vault folder, and say so on the board.
 
 ## The waiting line (the whole point)
 
 When a lane hits something only the user can decide, it does not stop the day and it does not guess. It:
 
 1. Writes one line on its board entry: `WAITING ON YOU: <the exact question, with a), b), c) options if it is a pick>`.
-2. Turns its workspace red (cmux: `cmux workspace-action --action set-color --color Red`) so it is visible.
+2. Turns its workspace red (`cmux workspace-action --action set-color --color Red`) and sets `cmux set-status mode "WAITING"` so it is visible.
 3. Keeps working on everything else in its lane.
 
-When the user answers (to the CEO), the CEO passes the answer to the lane, the lane clears the line and turns back to its color.
+When the user answers (to the CEO), the CEO passes the answer to the lane, the lane clears the line, turns back to Blue, and sets status back to YOU.
 
 ## What always waits on the user
 
@@ -58,7 +84,8 @@ Use the strongest model for judgment work (a lending decision, a contract read).
 1. Read the board. Every lane should be DONE or PARKED with its WAITING line.
 2. Write the day note: what got done, what is parked and why, and "Start here tomorrow."
 3. Mark the board lines `[x]` for done lanes.
-4. Say it plainly: "Nothing left to do here. You may close out."
+4. Unpin the CEO workspace (`cmux workspace-action --action unpin`) and set its color to Gray.
+5. Say it plainly: "Nothing left to do here. You may close out."
 
 ## Rules
 
