@@ -71,10 +71,11 @@ When the user answers (to the CEO), the CEO passes the answer to the lane, the l
 
 A lane that is done or fully parked closes itself out:
 
-1. Update its board line: `[x]` if done, or leave `[ ]` with its WAITING line if parked. Set `Status:` to DONE or PARKED.
-2. Set the workspace color to Green (done) or leave Red (parked on you): `cmux workspace-action --action set-color --color Green`.
-3. Set `cmux set-status mode "DONE"` (or `"PARKED"`).
-4. Say as the last line: "Nothing left to do here. You may close out."
+1. Run `/tldr` so the lane's summary lands in the daily notes. During long work, run `/checkpoint` at each milestone so nothing is lost if the session closes.
+2. Update its board line: `[x]` if done, or leave `[ ]` with its WAITING line if parked. Set `Status:` to DONE or PARKED.
+3. Set the workspace color to Green (done) or leave Red (parked on you): `cmux workspace-action --action set-color --color Green`.
+4. Set `cmux set-status mode "DONE"` (or `"PARKED"`).
+5. Say as the last line: "Nothing left to do here. You may close out."
 
 ## Icons
 
