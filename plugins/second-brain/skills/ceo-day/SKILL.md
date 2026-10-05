@@ -67,6 +67,19 @@ When a lane hits something only the user can decide, it does not stop the day an
 
 When the user answers (to the CEO), the CEO passes the answer to the lane, the lane clears the line, turns back to Blue, and sets status back to YOU.
 
+## When a lane finishes
+
+A lane that is done or fully parked closes itself out:
+
+1. Update its board line: `[x]` if done, or leave `[ ]` with its WAITING line if parked. Set `Status:` to DONE or PARKED.
+2. Set the workspace color to Green (done) or leave Red (parked on you): `cmux workspace-action --action set-color --color Green`.
+3. Set `cmux set-status mode "DONE"` (or `"PARKED"`).
+4. Say as the last line: "Nothing left to do here. You may close out."
+
+## Icons
+
+Pick the icon for the kind of work when you name the lane: 🏠 rentals, 💵 lending and money, 🌐 pages and sites, 🧹 cleanup, 🔧 installs and fixes, 🫵 anything that is mostly waiting on you. Use 🔹 only if nothing fits.
+
 ## What always waits on the user
 
 Park it, say so on the board, keep going on the rest:
