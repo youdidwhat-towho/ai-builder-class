@@ -20,6 +20,8 @@ Keep this open during class. One page, nothing else to memorize.
 | Check your skills loaded | `what skills do you have?` |
 | Check everything is working | `/doctor` |
 | Turn down the coaching | `fewer callouts` |
+| Argue out a big decision | `council: should I ...` |
+| Cut a plan down | `run the algorithm on this` |
 | Get the newest skills | `update my class skills` |
 
 ---

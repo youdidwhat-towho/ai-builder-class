@@ -12,10 +12,10 @@ Nothing here is a demo. It all runs.
 | Folder | What it is |
 |---|---|
 | `vault-starter/` | Your second brain. A working Obsidian vault, not an empty template. General on purpose: no industry, no vendors. |
-| `claude-config/skills/` | Ten skills. Onboarding, capture, intake, checkpoint, tldr, end of day, maintain, week review, coaching, and updates. |
+| `claude-config/skills/` | The skills. Onboarding, capture, intake, checkpoint, tldr, end of day, maintain, week review, coaching, updates, and for big decisions the Council and the Algorithm. |
 | `claude-config/commands/` | Slash commands. Start with `/pickup`. |
 | `claude-config/settings.example.json` | A working hook, with notes on what hooks are for. |
-| `docs/` | Read `first-hour.md` first. |
+| `docs/` | Read `first-hour.md` first. `council-and-algorithm.md` covers the two decision skills. |
 | `client-addons/` | Not shipped. The pattern for building somebody's industry layer at install, plus one worked example. |
 | `UPDATE.md` | How to pull new skills later. No GitHub account needed. |
 
@@ -148,6 +148,8 @@ you can read it.
 | `coaching-callouts` | Nothing. Always on. It teaches while you work. |
 | `update-kit` | "update my class skills" |
 | `connect-backup` | "connect my backup". Once, at install. Five minutes and a free GitHub account. |
+| `council` | "council: should I ...". Several AI advisors argue a big decision from different sides. `--extended` for eight. |
+| `the-algorithm` | "run the algorithm on this", "what can we cut". Cuts a plan down to what survives. |
 
 Nothing in that list assumes an industry or a piece of software. Whatever you
 actually do for a living gets added on top, at install, built around the tools
